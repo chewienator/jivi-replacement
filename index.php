@@ -16,19 +16,18 @@ $page_title = "Home Page";
         <!-- container -->
         <div class="container-fluid">
             <div class="row">
-                <?php 
-                /*foreach($products AS $product){ 
-                ?>
-                <div class="col-md-3">
-                    <h3><a href="/detail.php?product_id=<?php echo $product['id']; ?>"><?php echo $product['name']; ?></a></h3>
-                    <a href="/detail.php?product_id=<?php echo $product['id']; ?>">
-                        <img src="/images/products/<?php echo $product['image_file_name']; ?>" class="img-fluid"></img>
-                    </a>
-                    <p><?php echo Textutility::sumarize($product['description'], 25); ?></p>
-                    <span class="font-weight-bold">$<?php echo $product['price']; ?></span>
+                <div id="#about">
+                    <p> here explain what is "TIM" h2</p>
+                    
                 </div>
-                <?php } */?>
+                <div id="#services">
+                    <p> here explain services maybe in h2 </p>
+                </div>
+                <div id="#contact">
+                    <p> here form for contact </p>
+                    
+                </div>
             </div>
-        </div>
+        </div><!-- end of container div -->
     </body>
 </html>

@@ -6,4 +6,5 @@
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/node_modules/popper.js/dist/umd/popper.js"></script>
     <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--remove when insert icons-->
 </head>

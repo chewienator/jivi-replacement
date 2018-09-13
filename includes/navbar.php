@@ -27,11 +27,11 @@ if(isset($_SESSION['email'])){
 ?>
 <!--navbar -->
 <?php if(isset($_SESSION['email'])){ ?>
-<div class="row">
-    <div class="container-fluid pt-1 pb-1">
+<div class="container-fluid">
+    <div class="row pt-1 pb-1">
         <div class="col-md-4 offset-md-8 text-right">
             Welcome to TiM <?php echo $_SESSION['first_name']; ?>
-            <button class="btn btn-secondary btn-sm" type="button">Log out</button>
+            <a href="logout.php" class="btn btn-secondary btn-sm" type="button">Log out</a>
         </div>
     </div>
 </div>
