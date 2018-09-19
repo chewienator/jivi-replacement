@@ -51,23 +51,29 @@ $page_title = "Dashboard";
                 <div class="col-lg-8">
                     <!-- Profile row -->
                     <div class="row" >
-                        <h4 class="col-12"> Profile </h4>
-                        <div class="col-4">
-                            <img src="/images/ashley.png" class="img-fluid" alt="img-thumbnail">
-                        </div>
-                        <div class=col-8>
-                            <ul>
-                                <li> Name:  <?php echo $_SESSION['first_name']; ?> </li>
-                                <li> Surname:</li> 
-                                <li> Bachelor: </li>   
-                                <li> Term: </li>
-                                <li> Attendance: </li>
-                            </ul>
+                        <div class="container-fluid">
+                            <h4> Profile </h4>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="/images/ashley.png" class="img-fluid" alt="img-thumbnail">
+                                </div>
+                                <div class=col-8>
+                                    <ul>
+                                        <li> Name:  <?php echo $_SESSION['first_name']; ?> </li>
+                                        <li> Surname:</li> 
+                                        <li> Bachelor: </li>   
+                                        <li> Term: </li>
+                                        <li> Attendance: </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- timetable column -->
                     <div class="row">
-                        <h4 class="col-12"> My Weekly Timetable </h4>
+                        <div class="container-fluid">
+                            <h4 class="col-12"> My Weekly Timetable </h4>
+                        </div> <!-- insert table from timetable.php -->
                     </div>
                 </div>
                 <?php 
@@ -86,4 +92,7 @@ $page_title = "Dashboard";
             
         </div><!-- end of container div -->
     </body>
+    <footer>
+        <?php include('includes/footer.php'); ?>
+    </footer>
 </html>

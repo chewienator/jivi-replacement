@@ -21,29 +21,29 @@ if(isset($_SESSION['email'])){
             'Services' => '/#services',
             'Contact' => '/#contact',
             'Log in' => 'login.php',
-            'Expression of interest' => 'eoi.php'
         );
 }
 ?>
 <!--navbar -->
 <?php if(isset($_SESSION['email'])){ ?>
 <div class="container-fluid">
-    <div class="row pt-1 pb-1">
+    <div class="row">
         <div class="col-md-4 offset-md-8 text-right">
-            Welcome to TiM <?php echo $_SESSION['first_name']; ?>
-            <a href="logout.php" class="btn btn-secondary btn-sm" type="button">Log out</a>
+            <p>Welcome to TiM <?php echo $_SESSION['first_name']; ?> <a href="logout.php" class="btn btn-secondary btn-sm" type="button">Log out</a></p> 
         </div>
     </div>
 </div>
 <?php } ?>
-<nav class="navbar navbar-dark bg-dark navbar-expand-md">
-    <a href="/" class="navbar-brand"><img src=""></img>Logo here</a>
+<nav class="navbar navbar-dark bg-dark navbar-expand-md navbar-fixed-top" >
+    <a href="/" class="navbar-brand">
+        <img src="Logo here"></img> LOGO
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu">
         <span class="navbar-toggler-icon"></span>
     </button>
     
     <div class="collapse navbar-collapse" id="main-menu">
-        <p class="d-block d-sm-none" style="color:white;">Hello You</p>
+        <p class="d-block d-sm-none" style="color:white;">Hello You <!-- php name --> </p>
         <ul class="navbar-nav ml-auto">
             <?php 
             foreach($navs as $key => $value){
@@ -55,3 +55,13 @@ if(isset($_SESSION['email'])){
         </ul>
     </div>
 </nav>
+
+
+
+
+<!-- <li>
+        <a href="#">
+            <img src="...">
+            <p>Dashboard</p>
+        </a>
+    </li>

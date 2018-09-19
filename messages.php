@@ -41,10 +41,12 @@
                 <div class="col-lg-8">
                     <!-- Message details -->
                     <div class="row" >
-                        <h4 class="col-12"> Message </h4>
-                        <div class=col-12>
-                            <h6> Message Object</h6>
-                            <p> Lorem ipsum .... </p>
+                        <div class="container-fluid">
+                            <h4 class="col-12"> Message </h4>
+                            <div class=col-12>
+                                <h6> Message Object</h6>
+                                <p> Lorem ipsum .... </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,4 +62,7 @@
             </div>
         </div>
     </body>
+    <footer>
+        <?php include('includes/footer.php'); ?>
+    </footer>
 </html>
