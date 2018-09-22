@@ -1,64 +1,74 @@
-body{
-    font-family: 'Merriweather', serif;
-    color: grey;
-    padding: 10px 0px;
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #20303D;
+    padding: 10px 0px 70px 0px;
+    position: relative;
+    overflow: auto;
 }
-.price::before{
-    content:'\0024';
-}
-
-footer{
-    background-color: black;
-    position: fixed;
-    left: 0;
-    bottom: 0;
+footer {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    background-color: #007672;  
+    color: #000000;
     width: 100%;
+    height: 70px;
+    bottom: 0;
+    position: relative;
+    opacity: 0.8;
+}
+.userbar {
+    height: 25px; 
+    font-size: 10px;
+}
+.btn-log{
+    font-size: 10px;
+    background-color: #E33606;
+}
+.btn-log:hover{
+    background-color: #E35406;
+}
+.btn{
+    background-color: #E35406;
+    color: #ffffff;
+}
+.btn:hover{
+    background-color: #E33606;
+}
+.list-group-item-action:hover{
+    background-color: #5AADAC;
+    color: #000000;
+}
+.list-group-item-action:active{   /*not sure */
+    background-color: #E35406;
+    color: #000000;
+}
+ul{
+    list-style: none;
 }
 
-.parallax{
-    background-image: url('images/bg-calendar.jpg') ;
-    height: 100%;
-    background-size: cover ;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
+/*FONTS SIZES*/
+h6{
+    font-weight: bold;
 }
-.containerabout{   /* random values to check that does't respond */
-    margin: 200px;
-    padding: 20px;
-    height: 100%;
+h5{
+    font-weight: bold;
 }
-.container-services{
-    padding: 250px;
-    background-color: yellow;
-    min-height: 1500px;
-    padding: 150px;
+
+/* NAVBAR STYLES */
+
+.navbar-dark{
+    background-color: #007672 !important;
+    background-image: linear-gradient(-35deg,#007672,#65C2C1,#007672,);
+    font-size: 18px;
 }
-.colo{
-    background-color: white;
-    color: blue;
-    border-radius: 5px;
-    min-height: 500px;
+.nav-link:hover, .navbar-nav .nav-link:focus{ color:white; }
+.sticky-top{
+    position: sticky;
 }
-.container-contact{
-    padding: 50px;
-    background-image: url('images/images.jpg');
-    height: 100%;
-    background-size: cover ;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.cont-form-group{
-    background-color: blue;
-    opacity: 0.5
-}
-.copyright {
-    text-align: center;
-}
-.imagesource{
-    text-align: center;
- }   
+/* NAVBAR STYLES END */
+
+/* ANIMATIONS */
 .spinner{
     max-width:20px;
     animation: spin 2s linear infinite;
@@ -72,7 +82,55 @@ footer{
         transform: rotate(360deg);
     }
 }
+/* ANIMATIONS END */
 
+/*HOME PAGE STYLES */
+.parallax{
+    background-image: url('../images/bg-calendar.jpg') ;
+    height: 100%;
+    background-size: cover ;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.container-about{
+    height: 100vh;
+}
+.container-services{
+    background-color: blue; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom right, green, blue);
+    min-height: 100vh;
+}
+.colo{
+    background-color: white;
+    color: blue;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) blue;
+}
+.container-contact{
+    padding: 50px;
+    background-image: url('../images/images.jpg');
+    height: 100vh;
+    background-size: cover ;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cont-form-group{
+    background-color: white;
+    opacity: 0.8;
+    padding: 10px;
+}
+/*HOME PAGE STYLES END*/
+
+.imagesource{
+    text-align: center;
+ }   
+
+.profile-image{
+    max-height: 300px;
+}
 /* ------ ADMIN SIDEBAR -------- */
 
 #sidebar {

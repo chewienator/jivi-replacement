@@ -16,11 +16,12 @@ $page_title = "Dashboard";
         <!-- container -->
         <div class="container-fluid">
             <div class="row">
-                <!-- messages colomn -->
-                <div class="col-lg-4">
+                
+                <!-- messages column -->
+                <div class="col-md-4 pt-3">
                     <div class="row">
                         <div class="container-fluid">
-                            <h4> Messages </h4>
+                            <h5> Messages </h5>
                             <div class="list-group">
                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                  <div class="d-flex justify-content-between">
@@ -47,17 +48,18 @@ $page_title = "Dashboard";
                         </div>
                     </div>
                 </div>
+                
                 <!-- second colomn -->
-                <div class="col-lg-8">
-                    <!-- Profile row -->
+                <div class="col-md-8 pt-3">
+                    <!-- Profile colo -->
                     <div class="row" >
                         <div class="container-fluid">
-                            <h4> Profile </h4>
+                            <h5> Profile </h5>
                             <div class="row">
-                                <div class="col-4">
-                                    <img src="/images/ashley.png" class="img-fluid" alt="img-thumbnail">
+                                <div class="col-3">
+                                    <img src="../images/dummy_image.jpg" class="img-fluid profile-image" alt="img-thumbnail">
                                 </div>
-                                <div class=col-8>
+                                <div class=col-9>
                                     <ul>
                                         <li> Name:  <?php echo $_SESSION['first_name']; ?> </li>
                                         <li> Surname:</li> 
@@ -72,7 +74,7 @@ $page_title = "Dashboard";
                     <!-- timetable column -->
                     <div class="row">
                         <div class="container-fluid">
-                            <h4 class="col-12"> My Weekly Timetable </h4>
+                            <h5 class="col-sm-12 pt-3 "> My Weekly Timetable </h5>
                         </div> <!-- insert table from timetable.php -->
                     </div>
                 </div>

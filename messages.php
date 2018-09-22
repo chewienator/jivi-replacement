@@ -7,10 +7,10 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- messages colomn -->
-                <div class="col-lg-4">
+                <div class="col-md-4 pt-3">
                     <div class="row">
                         <div class="container-fluid">
-                            <h4> Messages </h4>
+                            <h5> Messages </h5>
                             <div class="list-group">
                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                  <div class="d-flex justify-content-between">
@@ -38,11 +38,11 @@
                     </div>
                 </div>
                 <!-- second colomn -->
-                <div class="col-lg-8">
+                <div class="col-md-8 pt-3">
                     <!-- Message details -->
                     <div class="row" >
                         <div class="container-fluid">
-                            <h4 class="col-12"> Message </h4>
+                            <h5 class="col-12"> Message </h5>
                             <div class=col-12>
                                 <h6> Message Object</h6>
                                 <p> Lorem ipsum .... </p>

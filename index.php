@@ -14,26 +14,34 @@ $page_title = "Home Page";
     <body>
         <?php include('includes/navbar.php'); ?>
         <!-- ABOUT -->
-        <div id="#about" class="parallax containerabout"> <!-- WANTED TO CREATE PARALLAX BUT DOESN'T WORK --->
-            <h3 class="text-center"> ABOUT US </h3>
-            <p class="text-center" style="color: blue; font-size:20px;"> Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <div id="#about" class="parallax container-about d-flex ">
+            <div class="container align-self-center">
+                <h3 class="text-center"> ABOUT US </h3>
+                <p class="text-center"> Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
         </div>   
         <!-- SERVICES -->
-        <div id="#services" class="container-services text-center">
-            <div class="container">
-                <h3> SERVICES </h3>
+        <div id="#services" class="container-services text-center d-flex">
+            <div class="container align-self-center">
+                <h3 class="mb-5 mt-5" > SERVICES </h3>
                 <div class="row">
-                    <div class="col-4" "colo" > <!-- WANTED TO CREATE "CARDS" WITH WHITE BACKGROUND BUT DOESN'T WORK AS CLASS --->
-                    <h5> THIS </h5>
-                        <p> baasjhfsdhadsh dsfajhasda l</p>
+                    <div class="col-md-4">
+                        <div class="colo">
+                            <h5 i class="fa fa-check-circle"> THIS </h5>
+                            <p>  Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book </p>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <h5> THIS </h5>
-                        <p> baasjhfsdhadsh dsfajhasda l</p>
+                    <div class="col-md-4">
+                        <div class="colo">
+                            <h5> THIS </h5>
+                            <p>  Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book </p>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <h5> THIS </h5>
-                        <p><i class="fa fa-check-circle"></i> baasjhfsdhadsh dsfajhasda l</p>
+                    <div class="col-md-4">
+                        <div class="colo">
+                            <h5> THIS </h5>
+                            <p>  Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,12 +49,12 @@ $page_title = "Home Page";
         <!-- CONTACT -->
         <div id="#contact" class="container-contact text-left" style="padding-left: 50px">
             <div class="row">
-                <div class="col-3 offset-3">
+                <div class="col-md-4 offset-md-2">
                     <h3> CONTACT US</h3>
                     <p style="color: blue; text-position:center"> If you are interested in discovering more about services, 
                     drop us a line and we will answer back to you</p>
                 </div>   
-                <div class="col-3 cont-form-group"> <!-- WANTED TO CREATE OPACITY WHITE BACKGROUND ON PARALLAX IMAGE BUT DOESN'T WORK -->
+                <div class="col-md-5 cont-form-group">
                     <form action="/action_page.php">
                         <div class="form-group">
                             <label for="name">First Name</label>
@@ -85,7 +93,7 @@ $page_title = "Home Page";
                         <div class="form-group">
                             <textarea class="form-control" id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn">Submit</button>
                     </form>
                 </div>
             </div>
@@ -105,4 +113,5 @@ $page_title = "Home Page";
         <i class="fa fa-home"></i>
         </script>  -->
     </body>
+    <?php include('includes/footer.php'); ?>
 </html>
