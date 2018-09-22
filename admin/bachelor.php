@@ -35,20 +35,20 @@ if($_GET['a'] == 'e'){ //edit the bachelor
                 <h2>Bachelors</h2>
                 <p>Here you will find all information bachelor related</p>
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
-                <a href="bachelor.php?a=n" class="btn btn-primary">Create New Bachelor</a>
             </div>
             <div class="row pt-3">
                 <div class="col-6">
-                    <form id="bachelor" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <form id="main-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" id="name" value="<?php echo $info['name']; ?>">
+                            <input type="text" name="name" class="form-control" id="name" value="<?php echo $info['name']; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="cricos">CRICOS</label>
-                            <input type="text" name="cricos" class="form-control" id="cricos" value="<?php echo $info['cricos']; ?>">
+                            <input type="text" name="cricos" class="form-control" id="cricos" value="<?php echo $info['cricos']; ?>" required>
                         </div>
                         <input type="hidden" name="a" value="<?php echo $_GET['a']; ?>">
+                        <input type="hidden" name="h" value="bachelor">
                         
                         <?php if($_GET['a'] == 'e'){ ?>
                         <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
@@ -61,7 +61,7 @@ if($_GET['a'] == 'e'){ //edit the bachelor
             </div>
         </div>
         <!-- /#page-content-wrapper -->
-    <script type="text/javascript" src="js/bachelor.js"></script>
+    <script type="text/javascript" src="js/form_submit.js"></script>
     </div>
     <!-- /#wrapper -->
     <?php include 'includes/footer.php'; ?>

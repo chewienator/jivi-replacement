@@ -6,7 +6,7 @@
         <a href="bachelors_list.php">Bachelors</a>
     </li>
     <li>
-        <a href="courses.php">Courses</a>
+        <a href="courses_list.php">Courses</a>
     </li>
     <li>
         <a href="accounts.php">Accounts</a>

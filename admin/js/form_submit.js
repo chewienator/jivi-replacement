@@ -1,6 +1,6 @@
 $(document).ready(
     ()=>{
-        $('#bachelor').on('submit', (event) =>{
+        $('#main-form').on('submit', (event) =>{
             event.preventDefault();
             //create spinner image
             const spinner =`<img class="spinner" src="../images/spinner-loading.png">`;
@@ -8,14 +8,16 @@ $(document).ready(
             
             //send the data via ajax request to handler /ajax/bachelor.ajax.php
             $.ajax({
-                url: '/ajax/bachelor.ajax.php',
+                url: '/admin/ajax/'+$('#main-form [name=h]').val()+'.ajax.php',
                 method: 'post',
                 dataType: 'json',
-                data: $( this ).serialize()
+                data: $('#main-form').serialize()
             }).done( (response) => {
                 $('.spinner').remove();
                 if(response.success == true){
-                    window.location.href = response.redirect;
+                    if(response.redirect != 'none'){
+                        window.location.href = response.redirect;
+                    }
                 }else{
                     console.log('login failed');
                 }
