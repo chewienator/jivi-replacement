@@ -26,8 +26,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $auth = $account->authenticate($email, $password);
         
         if($auth == true){
-            $response['success'] = true;
-            $_SESSION['email'] = $email;
+            //check if is an admin or a student to make the correct redirect
+            if($_SESSION['user_type'] == 'Admin'){
+                $redirect = '/admin/index.php';
+            }else{
+                $redirect = '/dashboard.php';
+            }
+            $response = array('success' => true, 'redirect'=>$redirect);
         }else{
             $error['auth'] = 'Wrong credentials supplied.';
             $response['errors'] = $error;

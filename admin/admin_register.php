@@ -1,36 +1,49 @@
 <?php
 //include the autoloader class
-include('autoloader.php');
+include('../autoloader.php');
+
+$page_title = "Sign Up";
 
 //if the method request is POST
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
-    //let's validate if they are who they say...
+    //handle sign up here
     $account = new Account();
-    $success = $account->authenticate($_POST['email'], $_POST['password']);
     
-    if($success == true){ //login successful
-        //redirect to dashboard
-        header('location:/dashboard.php');
+    //receive post variables from forms
+    $signup = $account->create( $_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], 'Admin');
+    if($signup == true){
+        //signup succeded
+        $message = 'Your account has been created';
+        $message_class = 'success';
     }else{
-        $message = 'Wrong credentials supplied.';
+        //signup failed, get errors
+        $message = implode(' ', $account->errors);
         $message_class = 'warning';
     }
-   
 }
 
 ?>
+
 <!doctype html>
 <html>
-    <?php include('includes/head.php'); ?>
+    
     <body>
-        <?php include('includes/navbar.php'); ?>
+        
         <!-- container -->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 offset-md-4">
-                    <form id="signin-form" method="post" action="login.php">
-                        <h3>Log in to account</h3>
+                    <form id="signup-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <h3>sign up for an account</h3>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" id="name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="surname">Surname</label>
+                        <input class="form-control" type="text" name="surname" id="surname"/>
+                        </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input class="form-control" type="email" name="email" id="email" placeholder="you@example.com"/>
@@ -39,7 +52,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             <label for="password">Password</label>
                             <input class="form-control" type="password" name="password" id="password" placeholder="minimum 6 characters"/>
                         </div>
-                        <button class="btn btn-primary mt-2" id="signin-btn" type="submit"/>Sign in</button>
+                        <button class="btn btn-primary mt-2" type="submit"/>Sign up</button>
+                        <button class="btn btn-danger mt-2" type="reset"/>Clear</button>
                     </form>
                     <?php 
                         if($message){
@@ -52,6 +66,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/login.js"></script>
     </body>
 </html>

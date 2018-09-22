@@ -8,7 +8,7 @@ class Account extends Database{
         parent::__construct();
     }
     
-    public function create($email, $password){
+    public function create($name, $surname, $email, $password, $user_type){
         $errors = array();
         
         //validate email
@@ -20,20 +20,30 @@ class Account extends Database{
             $errors['password'] = 'minimum 6 characters.';
         }
         
+        //check if name is empty
+        if( strlen($name) == 0 ){
+            $errors['name'] = 'Please type in your name.';
+        }
+        
+        //check if surname is empty
+        if( strlen($surname) == 0 ){
+            $errors['surname'] = 'Please type in your surname.';
+        }
+        
         //check if there are no errors
         if(count($errors) == 0){
             //create the account
             $query = "INSERT INTO account 
-                    (email, password, created, accessed, profile_img, active) 
+                    (name, surname, email, password, user_type, profile_image, active) 
                     VALUES 
-                    (?, ?, NOW(), NOW(), 'default.jpg', 1)";
+                    (?, ?, ?, ?, ?, 'default.jpg', 1)";
             
             //hash the password
             $hash = password_hash($password, PASSWORD_DEFAULT);
             
             //query the database
             $statement = $this -> connection -> prepare($query);
-            $statement -> bind_param('ss', $email, $hash);
+            $statement -> bind_param('sssss', $name, $surname, $email, $hash, $user_type);
             $succes = $statement->execute() ? true : false;
             
             //check what type of error code (just in case)
@@ -51,9 +61,7 @@ class Account extends Database{
     }
     
     public function authenticate($email, $password){
-        $query = "SELECT email,password,profile_img,username 
-                FROM account 
-                WHERE email = ? AND active = 1";
+        $query = "SELECT name, email, password, user_type FROM account WHERE email = ? AND active = 1";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('s', $email);
         $statement->execute();
@@ -65,14 +73,17 @@ class Account extends Database{
             $account = $result->fetch_assoc();
             $email = $account['email'];
             $hash = $account['password'];
-            $img = $account['profile_img'];
-            $username = $account['username'];
+            $user_type = $account['user_type'];
+            $name = $account['name'];
             $match = password_verify($password, $hash);
             if($match == true){
-                //password correct
+                //remove the password hash from the information
+                unset($account['password']);
+                
+                //start session and add information from account to the session
                 session_start();
-                $_SESSION['email'] = $email;
-                $_SESSION['username'] = $username;
+                $_SESSION = $account;
+                
                 return true;
             }else{
                 //wrong password   

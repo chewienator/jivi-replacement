@@ -1,9 +1,10 @@
 <?php 
-/* tricking the system so we can test login version */
+ 
 session_start();
+/* tricking the system so we can test login version
 $_SESSION['email'] = 'a@b.com';
 $_SESSION['first_name'] = 'Jennifer';
-/* end trick */
+*/
 
 //if we are logged in (session started)
 if(isset($_SESSION['email'])){
@@ -16,24 +17,28 @@ if(isset($_SESSION['email'])){
         );
 }else{
     $navs = array(
-            'Home' => '/',
-            'About' => '/#about',
-            'Services' => '/#services',
-            'Contact' => '/#contact',
-            'Log in' => 'login.php',
-        );
+            'Home' => array('file'=>'/', 'icon'=>'fa fa-dashboard'),
+            'About' => array('file'=>'/#about', 'icon'=>'fa fa-calendar'),
+            'Services' =>  array('file'=>'/#services', 'icon'=>'fa fa-object-group'),
+            'Contact' =>  array('file'=>'/#contact', 'icon'=>'fa fa-user'),
+            'Log in' =>  array('file'=>'login.php', 'icon'=>'fa fa-envelope')
+    );
 }
-?>
-<!--navbar -->
-<?php if(isset($_SESSION['email'])){ ?>
+
+//this part of the navbar is only visible if you are logged in
+if(isset($_SESSION['email'])){ ?>
+
 <div class="userbar container-fluid">
     <div class="row">
         <div class="col-md-6 offset-md-6 text-right pb-1">
-            <p>Welcome to TiM <?php echo $_SESSION['first_name']; ?> <a href="logout.php" class="btn-log btn-primary btn-sm" type="button">Log out</a></p> 
+            <p>Welcome to TiM <?php echo $_SESSION['name']; ?> <a href="/logout.php" class="btn-log btn-primary btn-sm" type="button">Log out</a></p> 
         </div>
     </div>
 </div>
+
 <?php } ?>
+
+<!--navbar -->
 <nav class="navbar navbar-dark bg-dark bg-light navbar-expand-md sticky-top" >
     <a href="/" class="navbar-brand">
         <img src="Logo here"></img> LOGO
@@ -43,7 +48,12 @@ if(isset($_SESSION['email'])){
     </button>
     
     <div class="collapse navbar-collapse" id="main-menu">
-        <p class="d-block d-sm-none" style="color:white;">Hello You <!-- php name --> </p>
+        <?php 
+        //this part of the navbar is only visible if you are logged in
+        if(isset($_SESSION['email'])){ ?>
+        <p class="d-block d-sm-none" style="color:white;">Hello <?php echo $_SESSION['name']; ?> </p>
+        <?php } ?>
+        
         <ul class="navbar-nav ml-auto">
             <?php 
             foreach($navs as $key => $value){

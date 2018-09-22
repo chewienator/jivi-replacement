@@ -20,7 +20,7 @@ $(document).ready(
             }).done( (response) => {
                 $('.spinner').remove();
                 if(response.success == true){
-                    window.location.href ='/index.php';
+                    window.location.href = response.redirect;
                 }else{
                     console.log('login failed');
                 }
