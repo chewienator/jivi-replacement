@@ -1,5 +1,5 @@
-<footer class="p-3">
-    <div class="d-none d-md-block">
+<footer>
+    <div class="d-none d-md-block p-3">
         <div class="row">
             <div class="col-6">
                 <ul>

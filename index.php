@@ -14,33 +14,42 @@ $page_title = "Home Page";
     <body>
         <?php include('includes/navbar.php'); ?>
         <!-- ABOUT -->
-        <div id="#about" class="parallax container-about d-flex ">
+        <div id="#about" class="container-about d-flex ">
             <div class="container align-self-center">
-                <h3 class="text-center"> ABOUT US </h3>
-                <p class="text-center"> Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <h1 class="text-center"> TIM </h1>
+                <h3 class="text-center"> TIMetable Management</h3>
+                <h4 class="text-center"> The paper-free time-effective solution
+                to create and maintain academic schedules and data. It helps 
+                the administration of every institute providing ease of scheduling 
+                and marking attendance.</h4>
             </div>
         </div>   
         <!-- SERVICES -->
-        <div id="#services" class="container-services text-center d-flex">
+        <div id="#services" class="parallax container-services text-center d-flex">
             <div class="container align-self-center">
-                <h3 class="mb-5 mt-5" > SERVICES </h3>
+                <h1 class="mb-5 mt-5" > SERVICES </h1>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="colo">
-                            <h5 i class="fa fa-check-circle"> THIS </h5>
-                            <p>  Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book </p>
+                            <h3> COURSE MANAGEMENT </h3>
+                            <p> TIM gives total freedom in bachelors and courses management. 
+                            The administration will be able to create, edit, upgrade and delete 
+                            any bachelors and/or related courses with ease. </p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="colo">
-                            <h5> THIS </h5>
-                            <p>  Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book </p>
+                            <h3> TIMETABLE <br> CREATION </h3>
+                            <p> TIM allows students to create their own schedule 
+                            without the use of paper or intervention from students
+                            service staff. </p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="colo">
-                            <h5> THIS </h5>
-                            <p>  Lorem Ipsum ver since the 1500s,ype and scrambled it to make a type specimen book </p>
+                            <h3> STUDENTS MANAGEMENT </h3>
+                            <p> The system consent to create, modify, delete and 
+                            store data of students and daily attendance.  </p>
                         </div>
                     </div>
                 </div>
@@ -50,9 +59,9 @@ $page_title = "Home Page";
         <div id="#contact" class="container-contact text-left" style="padding-left: 50px">
             <div class="row">
                 <div class="col-md-4 offset-md-2">
-                    <h3> CONTACT US</h3>
-                    <p style="color: blue; text-position:center"> If you are interested in discovering more about services, 
-                    drop us a line and we will answer back to you</p>
+                    <h1> CONTACT US</h1>
+                    <h4> If you are interested in discovering
+                    more about our services contact us</h4>
                 </div>   
                 <div class="col-md-5 cont-form-group">
                     <form action="/action_page.php">
@@ -82,18 +91,11 @@ $page_title = "Home Page";
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="school"> Institute </label>
-                            <select class="form-control" id="school" name="school">
-                                <option value="Academy">Academy</option>
-                                <option value="University">University</option>
-                                <option value="bla">dfdsf</option>
-                                <option value="bla">fsdasn</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <textarea class="form-control" id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
                         </div>
-                        <button type="submit" class="btn">Submit</button>
+                        <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -113,5 +115,7 @@ $page_title = "Home Page";
         <i class="fa fa-home"></i>
         </script>  -->
     </body>
-    <?php include('includes/footer.php'); ?>
+    <footer>
+        <?php include('includes/footer.php'); ?>
+    </footer>
 </html>

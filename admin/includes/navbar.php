@@ -9,12 +9,12 @@
         <a href="courses_list.php">Courses</a>
     </li>
     <li>
-        <a href="accounts.php">Accounts</a>
+        <a href="accounts_list.php">Accounts</a>
     </li>
     <li>
-        <a href="classrooms.php">Classrooms</a>
+        <a href="classrooms_list.php">Classrooms</a>
     </li>
     <li>
-        <a href="enrolments.php">Enrolments</a>
+        <a href="enrolment_list.php">Enrolments</a>
     </li>
 </ul>

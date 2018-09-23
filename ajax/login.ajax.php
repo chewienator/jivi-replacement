@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if($auth == true){
             //check if is an admin or a student to make the correct redirect
             if($_SESSION['user_type'] == 'Admin'){
-                $redirect = '/admin/index.php';
+                $redirect = '/admin/';
             }else{
                 $redirect = '/dashboard.php';
             }

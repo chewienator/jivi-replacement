@@ -2,47 +2,53 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     color: #20303D;
-    padding: 10px 0px 70px 0px;
+    padding: 10px 0px 80px 0px;
     position: relative;
-    overflow: auto;
+    min-height: 100vh;
 }
+
 footer {
     font-family: 'Montserrat', sans-serif;
     font-size: 10px;
     background-color: #007672;  
     color: #000000;
     width: 100%;
-    height: 70px;
+    height: 80px;
     bottom: 0;
-    position: relative;
+    position: absolute;
     opacity: 0.8;
 }
 .userbar {
     height: 25px; 
     font-size: 10px;
 }
+
+/* BUTTONS */
 .btn-log{
     font-size: 10px;
     background-color: #E33606;
+    border-color: #E33606;
 }
 .btn-log:hover{
     background-color: #E35406;
 }
-.btn{
+.btn-primary{
     background-color: #E35406;
     color: #ffffff;
+    border-color: #E35406;
 }
-.btn:hover{
+.btn-primary:hover{
     background-color: #E33606;
 }
 .list-group-item-action:hover{
     background-color: #5AADAC;
     color: #000000;
 }
-.list-group-item-action:active{   /*not sure */
+.list-group-item-action:active{ 
     background-color: #E35406;
     color: #000000;
 }
+/*LIST STYLE */
 ul{
     list-style: none;
 }
@@ -59,10 +65,11 @@ h5{
 
 .navbar-dark{
     background-color: #007672 !important;
-    background-image: linear-gradient(-35deg,#007672,#65C2C1,#007672,);
+    background-image: linear-gradient(-25deg,#007672,#65C2C1,#007672);
     font-size: 18px;
 }
 .nav-link:hover, .navbar-nav .nav-link:focus{ color:white; }
+
 .sticky-top{
     position: sticky;
 }
@@ -84,7 +91,7 @@ h5{
 }
 /* ANIMATIONS END */
 
-/*HOME PAGE STYLES */
+                                                /*HOME PAGE STYLES */
 .parallax{
     background-image: url('../images/bg-calendar.jpg') ;
     height: 100%;
@@ -95,32 +102,35 @@ h5{
 }
 .container-about{
     height: 100vh;
+    background-color: #007672; /* For browsers that do not support gradients */
+    background-image: linear-gradient(55deg,#65C2C1,#007672,#007672);
+    color: #ffffff;
 }
+
 .container-services{
-    background-color: blue; /* For browsers that do not support gradients */
-    background-image: linear-gradient(to bottom right, green, blue);
-    min-height: 100vh;
+    height: 100vh;
 }
 .colo{
-    background-color: white;
-    color: blue;
+    background-color: #E35406;
+    color: #ffffff;
     border-radius: 15px;
-    padding: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) blue;
+    padding: 30px;
+    min-height: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) #ffffff;
 }
 .container-contact{
     padding: 50px;
-    background-image: url('../images/images.jpg');
-    height: 100vh;
-    background-size: cover ;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
+    color: #ffffff;
+    background-color: #007672;
+    background-image: linear-gradient(-35deg,#007672,#65C2C1,#007672,); ;
+    min-height: 100vh;
 }
 .cont-form-group{
-    background-color: white;
+    background-color: #ffffff;
+    color: #000000;
     opacity: 0.8;
     padding: 10px;
+    border-radius: 15px;
 }
 /*HOME PAGE STYLES END*/
 

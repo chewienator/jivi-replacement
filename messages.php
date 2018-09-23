@@ -1,3 +1,11 @@
+<?php
+session_start();
+//include session check
+include('session_check.php');
+
+//include the autoloader class
+include('autoloader.php');
+?>
 <!doctype html>
 <html>
     <?php include('includes/head.php'); ?>
@@ -7,10 +15,10 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- messages colomn -->
-                <div class="col-md-4 pt-3">
+                <div class="col-md-4 p-3">
                     <div class="row">
                         <div class="container-fluid">
-                            <h5> Messages </h5>
+                            <h2> Messages </h2>
                             <div class="list-group">
                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                  <div class="d-flex justify-content-between">
@@ -38,11 +46,11 @@
                     </div>
                 </div>
                 <!-- second colomn -->
-                <div class="col-md-8 pt-3">
+                <div class="col-md-8 p-3">
                     <!-- Message details -->
                     <div class="row" >
                         <div class="container-fluid">
-                            <h5 class="col-12"> Message </h5>
+                            <h2 class="col-12"> Message </h2>
                             <div class=col-12>
                                 <h6> Message Object</h6>
                                 <p> Lorem ipsum .... </p>

@@ -1,11 +1,14 @@
 <?php
 session_start();
+//include session check
+include('../session_check.php');
+
 //include the autoloader class
 include('../autoloader.php');
 
 //we need the bachelors list for this page
-$bachelor = new Bachelor();
-$bachelor_list = $bachelor->getBachelors();
+//$bachelor = new Bachelor();
+//$bachelor_list = $bachelor->getBachelors();
 
 //lets check if they want to edit or create
 if($_GET['a'] == 'e'){ 
@@ -13,10 +16,9 @@ if($_GET['a'] == 'e'){
     $course = new Course();
     $info = $course->getCourse($_GET['id']);
     $page_title = "Edit Course";
-    print_r($info);
-    
+
 }elseif($_GET['a'] == 'n'){ //create a new one
-    $page_title = "Create Bachelor";
+    $page_title = "Create Course";
 }
 
 ?>
@@ -27,7 +29,6 @@ if($_GET['a'] == 'e'){
 <body>
 <link href="css/style.css" rel="stylesheet">
     <div id="wrapper">
-
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <?php include 'includes/navbar.php'; ?>  
@@ -43,21 +44,21 @@ if($_GET['a'] == 'e'){
             </div>
             <div class="row pt-3">
                 <div class="col-6">
-                    <form id="course" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <form id="main-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" class="form-control" id="name" value="<?php echo $info['name']; ?>" required>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <select name="bachelor_id" class="form-control">
-                                <?php foreach($bachelor_list AS $bachelor){
+                                <?php /* foreach($bachelor_list AS $bachelor){
                                     //check if the course belongs to this bachelor
                                     if($bachelor['id'] == $info['bachelor_id']){ $selected = "selected"; }else{ $selected =""; }
                                     echo '<option value="'.$bachelor['id'].'" '.$selected.'>'.$bachelor['name'].'</option>';
-                                }
+                                }*/
                                 ?>
                             </select>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label for="overview">Overview</label>
                             <textarea class="form-control" name="overview" id="overview" rows="4"><?php echo $info['overview']; ?></textarea>

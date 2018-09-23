@@ -46,11 +46,9 @@ class Bachelor extends Database{
         $statement->bind_param('ss', $name, $cricos);
         $statement->execute();
         
-        if($statement->execute()){
-            return $statement->insert_id;
-        }else{
-            return false;
-        }
+        $succes = $statement->execute() ? true : false;
+        
+        return $succes;
     }
     
     //edit a bachelor

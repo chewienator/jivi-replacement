@@ -1,5 +1,7 @@
 <?php
 session_start();
+//include session check
+include('../session_check.php');
 //include the autoloader class
 include('../autoloader.php');
 

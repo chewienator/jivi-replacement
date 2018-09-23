@@ -7,17 +7,12 @@ class Course extends Database{
         parent::__construct();
     }
     
-    //get list of courses available
+    //get list of courses available 
     public function getCourses(){
         $query = "SELECT 
-                        course.id,
-                        course.name,
-                        course.code, 
-                        bachelor.name AS bachelor_name 
-                    FROM `course` 
-                    JOIN curriculum ON course.id = curriculum.course_id 
-                    JOIN bachelor ON bachelor.id = curriculum.bachelor_id 
-                    ORDER BY curriculum.bachelor_id ASC, course.name ASC";
+                        id,name,code
+                    FROM course
+                    ORDER BY name ASC";
         $statement = $this->connection->prepare($query);
         $statement->execute();
         
@@ -32,12 +27,7 @@ class Course extends Database{
     
     //get specific course by ID
     public function getCourse($id){
-        $query = "SELECT 
-                        course.*,
-    			        curriculum.bachelor_id
-                    FROM `course` 
-                    JOIN curriculum ON course.id = curriculum.course_id 
-                    WHERE id = ?";
+        $query = "SELECT * FROM course WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();
@@ -53,10 +43,13 @@ class Course extends Database{
     }
     
     //create a new course
-    public function create($name, $code, $credit, $hours_per_week, $learning_outcomes,$overview, $assignments){
-        $query = "INSERT INTO course (name, code, credit, hours_per_week, learning_outcomes, overview, assignments) VALUES (?,?,?,?,?,?,?)";
+    public function create($name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){
+        $query = "INSERT INTO course 
+                        (name, overview, learning_outcomes, code, hours_per_week, credits) 
+                    VALUES 
+                        (?,?,?,?,?,?)";
         $statement = $this->connection->prepare($query);
-        $statement->bind_param('sssssss', $name, $code, $credit, $hours_per_week, $learning_outcomes, $overview, $assignments);
+        $statement->bind_param('ssssss', $name, $overview, $learning_outcomes, $code, $hours_per_week, $credits);
         $statement->execute();
         
         $succes = $statement->execute() ? true : false;
@@ -65,10 +58,17 @@ class Course extends Database{
     }
     
     //edit a course
-    public function edit($name, $code, $credit, $hours_per_week, $learning_outcomes,$overview, $assignments){
-        $query = "UPDATE course SET name = ?, code = ?, credit = ?, hours_per_week = ?, learning_outcomes = ?, overview = ?, assignments = ? WHERE id = ?";
+    public function edit($id, $name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){
+        $query = "UPDATE course SET 
+                        name = ?,
+                        overview = ?,
+                        learning_outcomes = ?,
+                        code = ?,
+                        hours_per_week = ?,
+                        credits = ? 
+                    WHERE id = ?";
         $statement = $this->connection->prepare($query);
-        $statement->bind_param('sssssssi', $name, $code, $credit, $hours_per_week, $learning_outcomes,$overview, $assignments, $id);
+        $statement->bind_param('ssssssi', $name, $overview, $learning_outcomes, $code, $hours_per_week, $credits, $id);
         $statement->execute();
         
         $succes = $statement->execute() ? true : false;

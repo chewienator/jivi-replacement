@@ -1,10 +1,13 @@
 <?php
 session_start();
+//include session check
+include('session_check.php');
+
 //include the autoloader class
 include('autoloader.php');
-/*
-$product_list = new Products;
-$products = $product_list->getProducts();*/
+
+$profile = new Account();
+$myProfile = $profile->getAccount($_SESSION['id']);
 
 $page_title = "Dashboard";
 ?>
@@ -18,10 +21,10 @@ $page_title = "Dashboard";
             <div class="row">
                 
                 <!-- messages column -->
-                <div class="col-md-4 pt-3">
+                <div class="col-md-4 p-3">
                     <div class="row">
                         <div class="container-fluid">
-                            <h5> Messages </h5>
+                            <h2> Messages </h2>
                             <div class="list-group">
                              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                  <div class="d-flex justify-content-between">
@@ -50,22 +53,23 @@ $page_title = "Dashboard";
                 </div>
                 
                 <!-- second colomn -->
-                <div class="col-md-8 pt-3">
+                <div class="col-md-8 p-3">
                     <!-- Profile colo -->
                     <div class="row" >
                         <div class="container-fluid">
-                            <h5> Profile </h5>
+                            <h2> Profile </h2>
                             <div class="row">
                                 <div class="col-3">
-                                    <img src="../images/dummy_image.jpg" class="img-fluid profile-image" alt="img-thumbnail">
+                                    <img src="../images/dummy_image.jpg" class="img-fluid profile-image" alt="img-thumbnail" <?php echo $myProfile['profile_image']; ?> >
                                 </div>
                                 <div class=col-9>
                                     <ul>
-                                        <li> Name:  <?php echo $_SESSION['first_name']; ?> </li>
-                                        <li> Surname:</li> 
-                                        <li> Bachelor: </li>   
-                                        <li> Term: </li>
-                                        <li> Attendance: </li>
+                                        <li> Name:  <?php echo $myProfile['name']; ?> </li>
+                                        <li> Surname: <?php echo $myProfile['surname']; ?></li> 
+                                        <li> Mobile: <?php echo $myProfile['phone']; ?></li> 
+                                        <li> Address: <?php echo $myProfile['address']; ?></li>
+                                        <li> Student number: <?php echo $myProfile['id']; ?> </li> 
+                                        <li> eMail: <?php echo $myProfile['email']; ?></li>
                                     </ul>
                                 </div>
                             </div>
@@ -74,7 +78,7 @@ $page_title = "Dashboard";
                     <!-- timetable column -->
                     <div class="row">
                         <div class="container-fluid">
-                            <h5 class="col-sm-12 pt-3 "> My Weekly Timetable </h5>
+                            <h2 class="col-sm-12 pt-3 "> My Weekly Timetable </h2>
                         </div> <!-- insert table from timetable.php -->
                     </div>
                 </div>
