@@ -42,6 +42,60 @@ class Course extends Database{
         
     }
     
+    //get courses available to add on timetable depending on bachelor ID
+    public function getCoursesForTimetable($id){
+        
+        $query = "SELECT 
+                        course.name, 
+                        course.code,
+                        course.id AS course_id,
+                        cgroup.id AS group_id, 
+                        cgroup.name AS group_name, 
+                        session.day, 
+                        session.time_block, 
+                        room.name AS room_name 
+                    FROM course
+                    JOIN curriculum ON course.id = curriculum.course_id 
+                    JOIN `group` AS cgroup ON cgroup.course_id = course.id
+                    JOIN session ON session.group_id = cgroup.id
+                    JOIN room ON room.id = session.room_id
+                    WHERE bachelor_id = ? ORDER BY course.name ASC";
+        
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+        
+        $result = $statement->get_result();
+        
+        $result_array = array();
+        $session_array = array();
+        $last_id = 0;
+        //loop thru query results
+        while( $row = $result->fetch_assoc() ){
+            
+            //first we need the group info on the array
+            if($row['group_id'] != $last_id || $last_id == 0){
+                $result_array[$row['group_id']] = array(
+                                'course_name' => $row['name'], 
+                                'course_code'=>$row['code'], 
+                                'course_id'=>$row['course_id'],
+                                'group_name'=>$row['group_name'], 
+                                'sessions'=>array()
+                            );
+                //lets update the last id with current group id
+                $last_id = $row['group_id'];
+            }
+            
+            //check if we are looking at the same group and if so, add a new session to array
+            if($row['group_id'] == $last_id || $last_id == 0){
+                $result_array[$row['group_id']]['sessions'][] = array('day'=>$row['day'], 'time_block'=>$row['time_block'],'room'=>$row['room_name']);
+            }
+        }
+        
+        $this->course = $result_array;
+        return $this->course;
+    }
+    
     //create a new course
     public function create($name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){
         $query = "INSERT INTO course 

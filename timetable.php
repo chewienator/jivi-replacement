@@ -26,48 +26,8 @@ $page_title = "Timetable";
         <!-- container -->
         <div class="container-fluid">
             <div class="row">
-                
-                <!-- search  subjects column -->
-                <div class="col-md-4 p-3">
-                    <h2>Subjects</h2>
-                    <div class="container-fluid">
-                        <!-- search subject -->
-                        <div class="row">
-                            <form action="/action_page.php"> <!-- action page? -->
-                                <div class="d-flex">
-                                    <input type="text" placeholder="Search course" name="search">
-                                    <button type="submit"> <i class="fa fa-search"> </i> </button>
-                                </div>
-                            </form>
-                        </div>
-                        
-                        <!--search results -->
-                        <div class="row pt-3">
-                            <div class="list-group w-100">
-                                <?php foreach($myCourse AS $course){ ?>
-                                <div class="list-group-item flex-column align-items-start">
-                                    <div class="row">
-                                        <div class="col justify-content-between">
-                                            <h6 class="mb-1"><?php echo $course['name']; ?></h6>
-                                            <small class="mb-1">Monday 5-9</small>
-                                        </div>
-                                        <div class="col d-flex justify-content-end align-self-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn">i</button>
-                                                <button type="button" class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
                 <!-- second colomn TIMETABLE -->
-                <div class="col-md-8 p-3">
+                <div class="col-md-12 p-3">
                     <div class="row">
                         <div class="container-fluid">
                             <h2> My Timetable </h2>
@@ -87,7 +47,7 @@ $page_title = "Timetable";
                                 <tbody>
                                     <tr class="b-1">
                                         <th scope="row">8am - 10am</th>
-                                        <td class="day-1">Introduction to web - Sydney A - Room: C10</td>
+                                        <td class="day-1"></td>
                                         <td class="day-2"></td>
                                         <td class="day-3"></td>
                                         <td class="day-4"></td>

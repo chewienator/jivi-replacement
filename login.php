@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <body>
         <?php include('includes/navbar.php'); ?>
         <!-- container -->
-        <div class="container-fluid">
+        <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-md-4 offset-md-4">
                     <form id="signin-form" method="post" action="login.php">
