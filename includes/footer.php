@@ -1,5 +1,5 @@
-<footer>
-    <div class="d-none d-md-block p-3">
+<footer  class="d-none d-md-block p-3">
+   
         <div class="row">
             <div class="col-6">
                 <ul>
@@ -15,7 +15,6 @@
             </div>
         </div>
         <div class="align-self-end text-right"> &copy; 2018 Copyright:C J </div>
-    </div>
 </footer>
 <?php 
 //load the scripts base

@@ -1,31 +1,30 @@
 <?php 
-class Bachelor extends Database{
+class Message extends Database{
     
-    public $bachelor = array();
+    public $message = array();
     
     public function __construct(){
         parent::__construct();
     }
     
-    //get list of ALL bachelors available
-    public function getBachelors(){
-        $query = "SELECT * FROM bachelor ORDER BY name ASC";
+    //get list of ALL messages available
+    public function getMessages(){
+        $query = "SELECT * FROM message ORDER BY date ASC";
         $statement = $this->connection->prepare($query);
-        //$statement->bind_param('s', $email);
         $statement->execute();
         
         $result = $statement->get_result();
         
         //loop thru query results
         while( $row = $result->fetch_assoc() ){
-            array_push( $this->bachelor, $row );
+            array_push( $this->message, $row );
         }
-        return $this->bachelor;
+        return $this->message;
     }
     
-    //get specific bachelor by ID (only one)
-    public function getBachelor($id){
-        $query = "SELECT * FROM bachelor WHERE id = ?";
+    //get specific message by ID (only one)
+    public function getMessage($id){
+        $query = "SELECT * FROM message WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();
@@ -34,27 +33,26 @@ class Bachelor extends Database{
         
         //get the result
         $row = $result->fetch_assoc();
-        $this->bachelor = $row;
+        $this->message = $row;
         
-        return $this->bachelor;
+        return $this->message;
     }
     
-    //create a new bachelor
-    public function create($name, $cricos){
-        $query = "INSERT INTO bachelor (name, cricos) VALUES (?,?)";
+    //create a new message
+    public function create($subject, $date, $body){
+        $query = "INSERT INTO message (subject, date, body) VALUES (?,?,?)";
         $statement = $this->connection->prepare($query);
-        $statement->bind_param('ss', $name, $cricos);
-        
+        $statement->bind_param('sss', $subject, $date, $body);
         $succes = $statement->execute() ? true : false;
         
         return $succes;
     }
     
-    //edit a bachelor
-    public function edit($id, $name, $cricos){
-        $query = "UPDATE bachelor SET name = ?, cricos = ? WHERE id = ?";
+    //edit a message
+    public function edit($id, $subject, $date, $body){
+        $query = "UPDATE message SET subject = ?, date = ?, body = ?, WHERE id = ?";
         $statement = $this->connection->prepare($query);
-        $statement->bind_param('ssi', $name, $cricos, $id);
+        $statement->bind_param('sssi', $subject, $date, $body, $id);
         $statement->execute();
         
         $succes = $statement->execute() ? true : false;

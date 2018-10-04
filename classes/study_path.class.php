@@ -1,33 +1,36 @@
 <?php 
-class Course extends Database{
+class Study_path extends Database{
     
-    public $course = array();
+    public $study_path = array();
     
     public function __construct(){
         parent::__construct();
     }
     
-    //get list of courses available 
-    public function getCourses(){
+    //get list of favourite courses  
+    public function getStudy_path($id){
         $query = "SELECT 
-                        id,name,code
-                    FROM course
-                    ORDER BY name ASC";
+                        course.*
+                    FROM study_path AS sp
+                    JOIN course ON sp.course_id = course.id
+                    WHERE sp.user_id = ?
+                    ORDER BY course.name ASC";
         $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
         $statement->execute();
         
         $result = $statement->get_result();
         
         //loop thru query results
         while( $row = $result->fetch_assoc() ){
-            array_push( $this->course, $row );
+            array_push( $this->sp, $row );
         }
-        return $this->course;
+        return $this->sp;
     }
     
-    //get specific course by ID
-    public function getCourse($id){
-        $query = "SELECT * FROM course WHERE id = ?";
+    //get specific favourite by ID
+    public function getsp($id){
+        $query = "SELECT * FROM favourite WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();
@@ -36,13 +39,13 @@ class Course extends Database{
         
         //get the result
         $row = $result->fetch_assoc();
-        $this->course = $row;
+        $this->sp = $row;
         
-        return $this->course;
+        return $this->sp;
         
     }
     
-    //get courses available to add on timetable depending on bachelor ID
+    //get favourite courses available to add on timetable depending on bachelor ID
     public function getCoursesForTimetable($id){
         
         $query = "SELECT 
@@ -96,7 +99,7 @@ class Course extends Database{
         return $this->course;
     }
     
-    //create a new course
+    /*create a new course
     public function create($name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){
         $query = "INSERT INTO course 
                         (name, overview, learning_outcomes, code, hours_per_week, credits) 
@@ -104,6 +107,7 @@ class Course extends Database{
                         (?,?,?,?,?,?)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ssssss', $name, $overview, $learning_outcomes, $code, $hours_per_week, $credits);
+        $statement->execute();
         
         $succes = $statement->execute() ? true : false;
         
@@ -127,7 +131,7 @@ class Course extends Database{
         $succes = $statement->execute() ? true : false;
         
         return $succes;
-    }
+    } */
 }
 
 ?>

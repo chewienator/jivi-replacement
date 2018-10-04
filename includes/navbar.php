@@ -51,7 +51,7 @@ if(isset($_SESSION['email'])){ ?>
         <?php 
         //this part of the navbar is only visible if you are logged in
         if(isset($_SESSION['email'])){ ?>
-        <p class="d-block d-sm-none" style="color:white;">Hello <?php echo $_SESSION['name']; ?> </p>
+        <p class="d-block d-sm-none">Hello <?php echo $_SESSION['name']; ?> </p>
         <?php } ?>
         
         <ul class="navbar-nav ml-auto">

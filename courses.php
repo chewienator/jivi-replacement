@@ -56,7 +56,7 @@ $page_title = "Subjects";
                     </div>
                 </div>
                 <!-- second colomn -->
-                <div class="col-md-8 p-3">
+                <div class="col-md-8 p-3 d-none d-md-block">
                     <!-- Subject Detail row -->
                     <div class="row" >
                         <div class="container-fluid">
@@ -96,8 +96,6 @@ $page_title = "Subjects";
                 </div>
         </div>
     </body>
-    <footer>
         <?php include('includes/footer.php'); ?>
-    </footer>
    
 </html>

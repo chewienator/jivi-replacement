@@ -59,7 +59,5 @@ $page_title = "Profile";
             </div> -->
         </div>
     </body>
-    <footer>
         <?php include('includes/footer.php'); ?>
-    </footer>
 </html>

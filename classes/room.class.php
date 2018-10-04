@@ -56,8 +56,6 @@ class Room extends Database{
         $query = "UPDATE room SET name = ? WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('si', $name, $id);
-        $statement->execute();
-        
         $succes = $statement->execute() ? true : false;
         
         return $succes;

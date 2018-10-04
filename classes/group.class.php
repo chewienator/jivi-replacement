@@ -44,8 +44,6 @@ class Group extends Database{  //or Course?
         $query = "INSERT INTO bachelor (name, course_id, teacher_id) VALUES (?,?,?)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('sss', $name, $course_id, $teacher_id);
-        $statement->execute();
-        
         $succes = $statement->execute() ? true : false;
         
         return $succes;

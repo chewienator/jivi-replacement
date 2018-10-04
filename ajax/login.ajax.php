@@ -10,7 +10,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $error = array();
     
     $values[] = array('email'=>$_POST['email'], 'password'=>$_POST['password']);
-    $response['values'] = json_encode($values);
     
     //check for POST variables
     if($_POST['email'] == '' || $_POST['password'] == ''){

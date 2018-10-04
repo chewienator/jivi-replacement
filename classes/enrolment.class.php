@@ -7,7 +7,7 @@ class Enrolment extends Database{
         parent::__construct();
     }
     
-    //get list of session available
+    //get bachelor where student is enroled
     public function getEnrolmentById($id){
         $query = "SELECT * FROM enrolment WHERE student_id = ?";
         $statement = $this->connection->prepare($query);
@@ -20,4 +20,5 @@ class Enrolment extends Database{
         
         return $this->enrolment;
     }
+    
 }

@@ -44,8 +44,6 @@ class Session extends Database{
         $query = "INSERT INTO session (group_id, day, time_block, room) VALUES (?,?,?,?)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ssss', $group_id, $day, $time_block, $room);
-        $statement->execute();
-        
         $succes = $statement->execute() ? true : false;
         
         return $succes;

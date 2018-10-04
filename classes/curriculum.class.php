@@ -36,8 +36,7 @@ class Curriculum extends Database{
         $query = "INSERT INTO course (name, code, credit, hours_per_week, learning_outcomes, overview, assignments) VALUES (?,?,?,?,?,?,?)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('sssssss', $name, $code, $credit, $hours_per_week, $learning_outcomes, $overview, $assignments);
-        $statement->execute();
-        
+       
         $succes = $statement->execute() ? true : false;
         
         return $succes;

@@ -6,13 +6,25 @@ include('session_check.php');
 //include the autoloader class
 include('autoloader.php');
 
+//let's check if we can create timetables or period is closed
+$options = new Options();
+$option = $options->getOption('timetables_open');
+if($option == 'false'){
+    //timetable session is closed so goto the dashboard man!
+    header('Location: /dashboard.php');
+}
+
 //get user bachelor enrolment
 $enrolment = new Enrolment();
 $myEnrolment = $enrolment->getEnrolmentById($_SESSION['id']);
 
-//lets get the course list 
+//lets get the course list available for this bachelor 
 $course = new Course();
 $courses = $course->getCoursesForTimetable($myEnrolment['bachelor_id']);
+
+//lets grab all the timetable for this person
+$timetable = new Timetable();
+$myTimetable = $timetable->getUserTimetable($_SESSION['id']);
 
 $page_title = "Timetable creator";
 
@@ -107,7 +119,7 @@ $page_title = "Timetable creator";
                                         <div class="col-4 d-flex justify-content-end align-self-end">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <!--<button type="button" class="btn">i</button>-->
-                                                <button type="button" class="btn btn-secondary"  onclick="moveGroup($(this));" data-group-id="<?php echo $group_id; ?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                                <button type="button" class="btn btn-secondary" onclick="moveGroup($(this));" data-group-id="<?php echo $group_id; ?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +199,7 @@ $page_title = "Timetable creator";
                                 <p> </p>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary">Enrol</button>
+                                <button type="button" class="btn btn-primary" onclick="submitTimetable();">Submit Timetable</button>
                             </div>
                         </div>
                     </div>
@@ -199,15 +211,44 @@ $page_title = "Timetable creator";
         <?php include('includes/footer.php'); ?>
     </footer>
     <script type="text/javascript">
-        <?php echo 'var myCourses = '.json_encode($courses, JSON_PRETTY_PRINT).';'; ?>
-        var myTimetable = [];
+        <?php echo 'var availableCourses = '.json_encode($courses, JSON_PRETTY_PRINT).';'; ?>
+        <?php echo 'var myTimetable = '.json_encode($myTimetable, JSON_PRETTY_PRINT).';'; ?>
+        var myGroups = [];
+        
+        $(document).ready(function(){
+            //if we already have a timetable saved, load it
+            if(myTimetable.length > 0){
+                fillTimetable(myTimetable);
+            }else{
+                console.log(myTimetable);
+            }
+        });
+        
+        //this function load the timetable
+        function fillTimetable(table){
+            //loop thru your saved timetable groups
+            for (var key in table) {
+                //append the data to the actual block
+                $('.b-'+table[key].time_block+' .day-'+table[key].day).append(table[key].course_name+' - Room: <b>'+table[key].room_name+'</b');
+            
+                //check if the group does not exist already in the array
+                if(myGroups.indexOf(table[key].id) == -1){
+                    //add the group to myGroups array so we keep track
+                    myGroups.push(table[key].id);
+                    //change the button state for that group to selected
+                    $('[data-group-id='+table[key].id+']').removeClass('btn-secondary').addClass('btn-danger selected').children().removeClass('fa-plus').addClass('fa-minus');
+                }else{
+                    console.log(myGroups.indexOf(table[key].id));
+                }
+            }
+        }
         
         //This function will add or remove a group from our timetable
         function moveGroup(group){
             
             groupId = group[0].dataset.groupId;
             //lets grab the sessions from the group
-            sessions = myCourses[groupId].sessions;
+            sessions = availableCourses[groupId].sessions;
             
             //session collision check
             
@@ -219,8 +260,8 @@ $page_title = "Timetable creator";
                     $('.b-'+sessions[key].time_block+' .day-'+sessions[key].day).empty();
                 }
                 
-                //remove group from myTimetable array
-                myTimetable = jQuery.grep(myTimetable, function(value) {
+                //remove group from myGroups array
+                myGroups = jQuery.grep(myGroups, function(value) {
                   return value != groupId;
                 });
                 
@@ -231,16 +272,54 @@ $page_title = "Timetable creator";
                 
                 //add sessions to timetable
                 for (var key in sessions){
-                    $('.b-'+sessions[key].time_block+' .day-'+sessions[key].day).append(myCourses[groupId].course_name+' - Room: <b>'+sessions[key].room+'</b');
+                    $('.b-'+sessions[key].time_block+' .day-'+sessions[key].day).append(availableCourses[groupId].course_name+' - Room: <b>'+sessions[key].room+'</b');
                 }
                 
-                //add group to myTimetable array
-                myTimetable.push(groupId);
+                //add group to myGroups array
+                myGroups.push(parseInt(groupId));
                 
                 //change the icon to an X and change the color of the button and add selected class
                 $(group).removeClass('btn-secondary').addClass('btn-danger selected').children().removeClass('fa-plus').addClass('fa-minus');
             }
         }
+        function submitTimetable(){
+            console.log(myGroups);
+            $.ajax({
+                url: '/ajax/timetable.ajax.php',
+                method: 'post',
+                dataType: 'json',
+                data: {a: 'n', user_id: <?php echo $_SESSION['id']; ?>, courses: myGroups },
+            }).done( (response) => {
+                console.log(response);
+                /*$('.spinner').remove();
+                if(response.success == true){
+                    if(response.div.length > 0){
+                        $('.'+response.div).remove();
+                    }
+                    console.log(response.msg);
+                }else{
+                    console.log('login failed');
+                }*/
+            });
+        }
+        
+        //this will be our search function to be implemented
+        /*
+        function search(){
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }*/
         
     </script>
 </html>

@@ -16,6 +16,7 @@ $myTimetable = $timetable->getUserTimetable($_SESSION['id']);
 
 $page_title = "Timetable";
 
+
 ?>
 
 <!doctype html>
@@ -89,12 +90,9 @@ $page_title = "Timetable";
                             </table>
                             </div>
                             
-                            <!-- Timetable shown as list of Days with name of subject and hours -->
+                            <!-- Timetable shown as carousel of Days with name of subject and hours -->
                             <div class="container-fluid d-none d-sm-block d-md-block">
                                 <p> </p>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary">Enrol</button>
                             </div>
                         </div>
                     </div>
