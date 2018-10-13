@@ -119,7 +119,7 @@ $page_title = "Timetable creator";
                                         <div class="col-4 d-flex justify-content-end align-self-end">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <!--<button type="button" class="btn">i</button>-->
-                                                <button type="button" class="btn btn-secondary" onclick="moveGroup($(this));" data-group-id="<?php echo $group_id; ?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                                <button type="button" class="btn btn-secondary" onclick="moveGroup(<?php echo $group_id; ?>);" data-group-id="<?php echo $group_id; ?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@ $page_title = "Timetable creator";
                 </div>
                 
                 
-                <!-- second colomn TIMETABLE -->
+                <!-- second column TIMETABLE -->
                 <div class="col-md-8 p-3">
                     <div class="row">
                         <div class="container-fluid">
@@ -214,50 +214,65 @@ $page_title = "Timetable creator";
         <?php echo 'var availableCourses = '.json_encode($courses, JSON_PRETTY_PRINT).';'; ?>
         <?php echo 'var myTimetable = '.json_encode($myTimetable, JSON_PRETTY_PRINT).';'; ?>
         var myGroups = [];
+        var usedBlocks = [];
         
         $(document).ready(function(){
             //if we already have a timetable saved, load it
             if(myTimetable.length > 0){
-                fillTimetable(myTimetable);
-            }else{
-                console.log(myTimetable);
+                loadTimetable(myTimetable);
             }
         });
         
         //this function load the timetable
-        function fillTimetable(table){
-            //loop thru your saved timetable groups
-            for (var key in table) {
-                //append the data to the actual block
-                $('.b-'+table[key].time_block+' .day-'+table[key].day).append(table[key].course_name+' - Room: <b>'+table[key].room_name+'</b');
+        function loadTimetable(table){
             
-                //check if the group does not exist already in the array
-                if(myGroups.indexOf(table[key].id) == -1){
-                    //add the group to myGroups array so we keep track
-                    myGroups.push(table[key].id);
-                    //change the button state for that group to selected
-                    $('[data-group-id='+table[key].id+']').removeClass('btn-secondary').addClass('btn-danger selected').children().removeClass('fa-plus').addClass('fa-minus');
-                }else{
-                    console.log(myGroups.indexOf(table[key].id));
-                }
+            //loop thru your saved timetable groups and add them to timetable
+            for (var key in table) {
+                moveGroup(table[key].group_id);
             }
         }
         
-        //This function will add or remove a group from our timetable
-        function moveGroup(group){
+        
+        //this function will check for collision while adding subjects to the timetable
+        function collisionCheck(groupId){
             
-            groupId = group[0].dataset.groupId;
+            //look for the group sessions in the availableCourses
+            sessions = availableCourses[groupId].sessions;
+            let collision = false;
+            
+            //check if sessions exit on the usedBlocks array
+            for (var key in sessions){
+                
+                //blocks are store as row(block) - column(day)
+                if(usedBlocks.indexOf(sessions[key].time_block+'-'+sessions[key].day) > -1){
+                    collision = true;
+                    break;
+                }
+            }
+            
+            return collision;
+        }
+        
+        //This function will add or remove a group from/to our timetable
+        function moveGroup(groupId){
+            
+            //let's look for the buton object
+            button = $('[data-group-id="'+groupId+'"]');
+            
             //lets grab the sessions from the group
             sessions = availableCourses[groupId].sessions;
             
-            //session collision check
-            
             //check if the group has been selected (group added to timetable)
-            if($(group).hasClass('selected')){
-                
+            if(button.hasClass('selected')){
+                    
                 //remove sessions from timetable
                 for (var key in sessions){
                     $('.b-'+sessions[key].time_block+' .day-'+sessions[key].day).empty();
+                    
+                    //remove session from usedBlocks array
+                    usedBlocks = jQuery.grep(usedBlocks, function(value) {
+                      return value != sessions[key].time_block+'-'+sessions[key].day;
+                    });
                 }
                 
                 //remove group from myGroups array
@@ -266,22 +281,32 @@ $page_title = "Timetable creator";
                 });
                 
                 //change icon to + and back to normal button color
-                $(group).removeClass('btn-danger selected').addClass('btn-secondary').children().removeClass('fa-minus').addClass('fa-plus');                
+                button.removeClass('btn-danger selected').addClass('btn-secondary').children().removeClass('fa-minus').addClass('fa-plus');                
             
             }else{ //we are adding the course group to our timetable
-                
-                //add sessions to timetable
-                for (var key in sessions){
-                    $('.b-'+sessions[key].time_block+' .day-'+sessions[key].day).append(availableCourses[groupId].course_name+' - Room: <b>'+sessions[key].room+'</b');
+                    
+                //check session collision FIRST!
+                if(collisionCheck(groupId) == false){
+                    
+                    //add sessions to timetable
+                    for (var key in sessions){
+                        $('.b-'+sessions[key].time_block+' .day-'+sessions[key].day).append(availableCourses[groupId].course_name+' - Room: <b>'+sessions[key].room+'</b');
+                    
+                        //add session to the used blocks array (block-day)
+                        usedBlocks.push(sessions[key].time_block+'-'+sessions[key].day);
+                    }
+                    
+                    //add group to myGroups array
+                    myGroups.push(parseInt(groupId));
+                    
+                    //change the icon to an X and change the color of the button and add selected class
+                    button.removeClass('btn-secondary').addClass('btn-danger selected').children().removeClass('fa-plus').addClass('fa-minus');
+                }else{
+                    console.log('collision error for group '+groupId);
                 }
-                
-                //add group to myGroups array
-                myGroups.push(parseInt(groupId));
-                
-                //change the icon to an X and change the color of the button and add selected class
-                $(group).removeClass('btn-secondary').addClass('btn-danger selected').children().removeClass('fa-plus').addClass('fa-minus');
             }
         }
+        
         function submitTimetable(){
             console.log(myGroups);
             $.ajax({

@@ -33,6 +33,14 @@ $page_title = "Accounts list";
                 <p>Here you will find all accounts created</p>
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
                 <a href="account.php?a=n" class="btn btn-primary">Create New Account</a>
+                <div class="row p-3">
+                    <form action="/action_page.php"> <!-- action page? -->
+                    <div class="d-flex">
+                        <input type="text" placeholder="Search account" name="search">
+                        <button type="submit"> <i class="fa fa-search"> </i> </button>
+                    </div>
+                    </form>
+                </div>
             </div>
             <div class="row pt-3">
                 <div class="col-6">
@@ -53,7 +61,7 @@ $page_title = "Accounts list";
                         <?php } ?>
                     </div>
                 </div>
-                <div class="col-6">Here there be a calendar for the day?</div>
+                <div class="col-6">Here there be details of account?</div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

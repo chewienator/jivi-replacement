@@ -1,16 +1,13 @@
 <?php
 session_start();
-//include session check
 include('../session_check.php');
-//include the autoloader class
 include('../autoloader.php');
 
-//let's query for all created bachelors
-$bachelor = new Bachelor();
-$bachelor_list = $bachelor->getBachelors();
+$message = new Message();
+$message_list = $message->getMessages();
 
 
-$page_title = "Bachelor list";
+$page_title = "Messages list";
 ?>
         
 <!DOCTYPE html>
@@ -31,33 +28,24 @@ $page_title = "Bachelor list";
             
             
             <div class="container-fluid">
-                <h2>Bachelors List</h2>
-                <p>Here you will find all bachelors created</p>
+                <h2>Messages</h2>
+                <p>Here you will find all messages created</p>
                 <div class="row p-3 d-flex flex-row">
-                <a href="#menu-toggle" class="btn btn-secondary m-2" id="menu-toggle">Toggle Menu</a>
-                <a href="bachelor.php?a=n" class="btn btn-primary m-2">Create New Bachelor</a>
-                <div class="row m-3">
-                    <form action="/action_page.php"> <!-- action page? -->
-                        <div class="d-flex">
-                            <input type="text" placeholder="Search bachelor" name="search">
-                            <button type="submit"> <i class="fa fa-search"> </i> </button>
-                        </div>
-                    </form>
-                </div>
-                </div>
-            </div>
+                    <a href="#menu-toggle" class="btn btn-secondary m-2" id="menu-toggle">Toggle Menu</a>
+                    <a href="message.php?a=n" class="btn btn-primary m-2">Create New Message</a>
+               </div>
             <div class="row pt-3">
                 <div class="col-6">
                     <div class="list-group w-100">
-                        <?php foreach( $bachelor_list AS $bachelor){ ?>
+                        <?php foreach( $message_list AS $message){ ?>
                         <div class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="row">
                                 <div class="col justify-content-between">
-                                    <h6 class="mb-1"><?php echo $bachelor['name']; ?></h6>
+                                    <h6 class="mb-1"><?php echo $message['subject']; ?></h6>
                                 </div>
                                 <div class="col d-flex justify-content-end align-self-center">
                                     <div class="btn-group" role="group" aria-label="action buttons">
-                                        <a href="bachelor.php?a=e&id=<?php echo $bachelor['id']; ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="message.php?a=e&id=<?php echo $message['id']; ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -67,8 +55,8 @@ $page_title = "Bachelor list";
                 </div>
             </div>
             
-            <!-- second coloumn preview/detail bachelor-->
-            
+            <!-- second coloumn -->
+            <div> </div>
         
         </div>
         <!-- /#page-content-wrapper -->

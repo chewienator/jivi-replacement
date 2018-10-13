@@ -9,19 +9,7 @@ class Timetable extends Database{
     
     //get specific timetable by user ID (only one)
     public function getUserTimetable($id){
-        $query = "SELECT 
-                        cgroup.name AS group_name,
-                        cgroup.id,
-                        course.name AS course_name,
-                        session.day,
-                        session.time_block,
-                        room.name AS room_name 
-                    FROM timetable 
-                    JOIN `group` AS cgroup ON timetable.group_id = cgroup.id 
-                    JOIN `course` ON course.id = cgroup.course_id
-                    JOIN `session` ON cgroup.id = session.group_id
-                    JOIN `room` ON session.room_id = room.id
-                    WHERE user_id = ? ORDER BY session.day ASC, session.time_block ASC";
+        $query = "SELECT group_id FROM timetable WHERE user_id = ? ORDER BY group_id ASC";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();

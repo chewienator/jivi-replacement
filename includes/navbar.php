@@ -1,10 +1,6 @@
 <?php 
  
 session_start();
-/* tricking the system so we can test login version
-$_SESSION['email'] = 'a@b.com';
-$_SESSION['first_name'] = 'Jennifer';
-*/
 
 //if we are logged in (session started)
 if(isset($_SESSION['email'])){
@@ -12,6 +8,7 @@ if(isset($_SESSION['email'])){
             'Dashboard' => array('file'=>'dashboard.php', 'icon'=>'fa fa-dashboard'),
             'Timetable' => array('file'=>'timetable.php', 'icon'=>'fa fa-calendar'),
             'Courses' =>  array('file'=>'courses.php', 'icon'=>'fa fa-object-group'),
+            'Study Path' => array('file' => 'study_path.php', 'icon'=> 'fa fa-road'),
             'Profile' =>  array('file'=>'profile.php', 'icon'=>'fa fa-user'),
             'Messages' =>  array('file'=>'messages.php', 'icon'=>'fa fa-envelope')
         );
@@ -31,7 +28,7 @@ if(isset($_SESSION['email'])){ ?>
 <div class="userbar container-fluid">
     <div class="row">
         <div class="col-md-6 offset-md-6 text-right pb-1">
-            <p>Welcome to TiM <?php echo $_SESSION['name']; ?> <a href="/logout.php" class="btn-log btn-primary btn-sm" type="button">Log out</a></p> 
+            <p>Welcome to Hora <?php echo $_SESSION['name']; ?> <a href="/logout.php" class="btn-log btn-primary btn-sm" type="button">Log out</a></p> 
         </div>
     </div>
 </div>
@@ -41,7 +38,7 @@ if(isset($_SESSION['email'])){ ?>
 <!--navbar -->
 <nav class="navbar navbar-dark bg-dark bg-light navbar-expand-md sticky-top" >
     <a href="/" class="navbar-brand">
-        <img src="Logo here"></img> LOGO
+        <img src="Logo here"></img> 
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu">
         <span class="navbar-toggler-icon"></span>

@@ -32,6 +32,11 @@ $page_title = "Profile";
             <div class="row">
                 <div class="col-sm-4 p-3">
                     <img src="../images/dummy_image.jpg" class="img-fluid profile-image" <?php echo $myProfile['profile_image']; ?>>
+                    <div class="col d-flex justify-content-end align-self-center">
+                        <div class="btn-group" role="group" aria-label="action buttons">
+                            <a href="profile.php?a=e&id=<?php echo $myProfile['id']; ?>" class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-8 p-3">
                     <h2> My details</h2>

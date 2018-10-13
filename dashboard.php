@@ -1,13 +1,13 @@
 <?php
 session_start();
-//include session check
-include('session_check.php');
 
-//include the autoloader class
+include('session_check.php');
 include('autoloader.php');
 
 $profile = new Account();
 $myProfile = $profile->getAccount($_SESSION['id']);
+$message = new Message();
+$myMessage = $message ->getMessages();
 
 $page_title = "Dashboard";
 ?>
@@ -21,102 +21,20 @@ $page_title = "Dashboard";
             <div class="row">
                 
                 <!-- messages column -->
-                <div class="col-md-4 d-none d-md-block">
+                <div class="col-md-4 d-none d-md-block p-3">
                     <div class="row">
                         <div class="container-fluid">
                             <h2> Messages </h2>
-                            <div class="list-group">
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="list-group p-3">
+                                <?php foreach($myMessage AS $message){  ?>
+                                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                  <div class="d-flex justify-content-between">
-                                     <h6 class="mb-1">Message 1</h6>
-                                     <small>3 days ago</small>
+                                     <h6 class="mb-1"><?php echo $message['subject']; ?></h6>
+                                     <small><?php echo $message['date']; ?></small>
                                 </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                <p class="mb-1"><?php echo $message['body']; ?></p>
                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="mb-1">Message 2</h6>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                             </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
-                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex justify-content-between">
-                                      <h6 class="mb-1">Message 3</h6>
-                                      <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                              </a>
+                             <?php } ?>
                             </div>
                         </div>
                     </div>

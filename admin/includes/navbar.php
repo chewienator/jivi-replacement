@@ -18,6 +18,9 @@
         <a href="enrolment_list.php">Enrolments</a>
     </li>
     <li>
+        <a href="messages_list.php">Messages</a>
+    </li>
+    <li>
         <a href="../logout.php">Logout</a>
     </li>
 </ul>

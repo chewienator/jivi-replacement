@@ -47,7 +47,7 @@ $page_title = "Bachelor list";
                 </div>
             </div>
             <div class="row pt-3">
-                <div class="col-6">
+                <div class="col-4">
                     <div class="list-group w-100">
                         <?php foreach( $bachelor_list AS $bachelor){ ?>
                         <div class="list-group-item list-group-item-action flex-column align-items-start">
@@ -68,7 +68,23 @@ $page_title = "Bachelor list";
             </div>
             
             <!-- second coloumn preview/detail bachelor-->
-            
+            <div class="col-md-8 p-3 d-none d-md-block">
+                <div class="row" >
+                    <div class="container-fluid">
+                        <div class="col-12">
+                            <h2>  <?php echo $bachelor['name']; ?> </h2>
+                            <div class="row">
+                                <div class="col-4 align-items-start">
+                                    <h6> CRICOS code: </h6>
+                                </div>
+                                <div class="col-6 align-items-end">
+                                    <h6> <?php echo $bachelor['cricos']; ?> </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
         </div>
         <!-- /#page-content-wrapper -->

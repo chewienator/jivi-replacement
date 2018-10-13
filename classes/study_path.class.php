@@ -7,7 +7,7 @@ class Study_path extends Database{
         parent::__construct();
     }
     
-    //get list of favourite courses  
+    //get list of subjects for 'my study path'  
     public function getStudy_path($id){
         $query = "SELECT 
                         course.*
@@ -28,9 +28,9 @@ class Study_path extends Database{
         return $this->sp;
     }
     
-    //get specific favourite by ID
+    //get specific sp by ID
     public function getsp($id){
-        $query = "SELECT * FROM favourite WHERE id = ?";
+        $query = "SELECT * FROM sp WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();
@@ -45,7 +45,7 @@ class Study_path extends Database{
         
     }
     
-    //get favourite courses available to add on timetable depending on bachelor ID
+    /*get sp courses available to add on timetable depending on bachelor ID
     public function getCoursesForTimetable($id){
         
         $query = "SELECT 
@@ -97,7 +97,7 @@ class Study_path extends Database{
         
         $this->course = $result_array;
         return $this->course;
-    }
+    } */
     
     /*create a new course
     public function create($name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){

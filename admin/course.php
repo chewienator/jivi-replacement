@@ -89,7 +89,7 @@ if($_GET['a'] == 'e'){
                         <button class="btn btn-primary mt-2" id="save-btn" type="submit"/>Save</button>
                     </form>
                 </div>
-                <div class="col-6">Here there be a calendar for the day?</div>
+                <div class="col-6">Here there be the preview of the course description?</div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
