@@ -8,7 +8,7 @@ class Study_path extends Database{
     }
     
     //get list of subjects for 'my study path'  
-    public function getStudy_path($id){
+    public function getCoursesForStudy_path($user_id){
         $query = "SELECT 
                         course.*
                     FROM study_path AS sp
@@ -45,24 +45,16 @@ class Study_path extends Database{
         
     }
     
-    /*get sp courses available to add on timetable depending on bachelor ID
-    public function getCoursesForTimetable($id){
+    //get courses available to add on sp depending on user ID
+    public function getCoursesForStudy_path($id){
         
         $query = "SELECT 
                         course.name, 
                         course.code,
                         course.id AS course_id,
-                        cgroup.id AS group_id, 
-                        cgroup.name AS group_name, 
-                        session.day, 
-                        session.time_block, 
-                        room.name AS room_name 
                     FROM course
-                    JOIN curriculum ON course.id = curriculum.course_id 
-                    JOIN `group` AS cgroup ON cgroup.course_id = course.id
-                    JOIN session ON session.group_id = cgroup.id
-                    JOIN room ON room.id = session.room_id
-                    WHERE bachelor_id = ? ORDER BY course.name ASC";
+                    JOIN study_path ON course.id = study_path.course_id 
+                    WHERE course_id = ? ORDER BY course.name ASC";
         
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
@@ -76,7 +68,7 @@ class Study_path extends Database{
         //loop thru query results
         while( $row = $result->fetch_assoc() ){
             
-            //first we need the group info on the array
+            /*//first we need the group info on the array
             if($row['group_id'] != $last_id || $last_id == 0){
                 $result_array[$row['group_id']] = array(
                                 'course_name' => $row['name'], 
@@ -97,9 +89,9 @@ class Study_path extends Database{
         
         $this->course = $result_array;
         return $this->course;
-    } */
+    }
     
-    /*create a new course
+    create a new course
     public function create($name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){
         $query = "INSERT INTO course 
                         (name, overview, learning_outcomes, code, hours_per_week, credits) 

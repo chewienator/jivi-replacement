@@ -33,11 +33,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <h3>Log in to account</h3>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input class="form-control" type="email" name="email" id="email" placeholder="you@example.com"/>
+                            <input class="form-control" type="email" name="email" id="email" placeholder="you@example.com" required/>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input class="form-control" type="password" name="password" id="password" placeholder="minimum 6 characters"/>
+                            <input class="form-control" type="password" name="password" id="password" placeholder="minimum 6 characters" required/>
                         </div>
                         <button class="btn btn-primary mt-2" id="signin-btn" type="submit"/>Sign in</button>
                     </form>
@@ -53,5 +53,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
         </div>
         <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
     </body>
 </html>

@@ -9,7 +9,7 @@ class Bachelor extends Database{
     
     //get list of ALL bachelors available
     public function getBachelors(){
-        $query = "SELECT * FROM bachelor ORDER BY name ASC";
+        $query = "SELECT * FROM bachelor WHERE active = 1 ORDER BY name ASC";
         $statement = $this->connection->prepare($query);
         //$statement->bind_param('s', $email);
         $statement->execute();
@@ -41,13 +41,13 @@ class Bachelor extends Database{
     
     //create a new bachelor
     public function create($name, $cricos){
-        $query = "INSERT INTO bachelor (name, cricos) VALUES (?,?)";
+        $query = "INSERT INTO bachelor (name, cricos, active) VALUES (?,?, 1)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ss', $name, $cricos);
         
-        $succes = $statement->execute() ? true : false;
+        $success = $statement->execute() ? true : false;
         
-        return $succes;
+        return $success;
     }
     
     //edit a bachelor
@@ -55,11 +55,21 @@ class Bachelor extends Database{
         $query = "UPDATE bachelor SET name = ?, cricos = ? WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ssi', $name, $cricos, $id);
-        $statement->execute();
         
-        $succes = $statement->execute() ? true : false;
+        $success = $statement->execute() ? true : false;
         
-        return $succes;
+        return $success;
+    }
+    
+    //"delete" deactivate a bachelor
+    public function deactivate($id){
+        $query = "UPDATE bachelor SET active = 0 WHERE id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+            
+        $success = $statement->execute() ? true : false;
+        
+        return $success;
     }
 }
 

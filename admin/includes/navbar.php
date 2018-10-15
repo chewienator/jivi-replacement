@@ -15,12 +15,12 @@
         <a href="classrooms_list.php">Classrooms</a>
     </li>
     <li>
-        <a href="enrolment_list.php">Enrolments</a>
-    </li>
-    <li>
         <a href="messages_list.php">Messages</a>
     </li>
     <li>
         <a href="../logout.php">Logout</a>
     </li>
 </ul>
+<div id="msg" class="fixed-top alert" role="alert">
+        This is a success alert—check it out!
+</div>

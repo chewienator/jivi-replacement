@@ -36,17 +36,9 @@ $page_title = "Subjects";
                                 <?php foreach($myCourse AS $course){ //loop thru results array ?>
                                 <div class="list-group-item list-group-item-action flex-column align-items-start searchable" data-name="<?php echo $course['name'].' - '.$course['code']; ?>">
                                     <div class="row">
-                                        <div class="col-12 justify-content-between" onclick="loadCourse(<?php echo $course['id']; ?>)">
+                                        <div class="col justify-content-between" onclick="loadCourse(<?php echo $course['id']; ?>)">
                                             <h6 class="mb-1"><?php echo $course['name']; ?></h6>
-                                        </div>
-                                        <div class="col-8 justify-content-between mb-1">
                                             <small class="mb-1"> <?php echo $course['code']; ?></small>
-                                        </div>
-                                        <div class="col-4 d-flex justify-content-end align-self-end">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <!--<button type="button" class="btn">i</button>-->
-                                                <button type="button" class="btn btn-secondary" onclick="moveGroup(<?php echo $group_id; ?>);" data-group-id="<?php echo $group_id; ?>"><i class="fa fa-heart" aria-hidden="true"></i></button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +54,7 @@ $page_title = "Subjects";
                         
                         <div class="container-fluid">
                             <div class="col-12">
-                                <button type="button" class="btn btn-info mb-3" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button> <!--should only be visible on mobile -->
+                                <button type="button" onclick="goBackAnimation()">Go back (should only be visible on mobile)</button> <!-- here is the button -->
                                 <h2 id="course_name"></h2>
                                 <div class="row">
                                     <div class="col-4 align-items-start">
@@ -101,6 +93,7 @@ $page_title = "Subjects";
     </body>
     
     <?php include('includes/footer.php'); ?>
+    
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
         function loadCourse(id){

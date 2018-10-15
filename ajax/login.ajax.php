@@ -9,13 +9,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $response = array();
     $error = array();
     
-    $values[] = array('email'=>$_POST['email'], 'password'=>$_POST['password']);
-    
     //check for POST variables
     if($_POST['email'] == '' || $_POST['password'] == ''){
-        $error['empty'] = 'One of the fields is empty.';
-        $response['errors'] = $error;
-        $response['success'] = false;
+        $response = array('success' => false, 'redirect'=>'none', 'msg'=>'One of the fields is empty.');
     }else{
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -33,9 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             }
             $response = array('success' => true, 'redirect'=>$redirect);
         }else{
-            $error['auth'] = 'Wrong credentials supplied.';
-            $response['errors'] = $error;
-            $response['success'] = false;
+            $response = array('success' => false, 'redirect'=>'none', 'msg'=>'Wrong credentials supplied.');
         }
     }
     

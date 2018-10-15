@@ -67,26 +67,6 @@ if($_GET['a'] == 'e'){ //edit the message
         <!-- /#page-content-wrapper -->
     <script type="text/javascript" src="js/form_submit.js"></script>
     <script type="text/javascript">
-        
-        function removeMessage(message){
-            console.log(message);
-            $.ajax({
-                url: '/admin/ajax/message.ajax.php',
-                method: 'post',
-                dataType: 'json',
-                data: {a: 'd', message_id: <?php echo $info['id']; ?> },
-            }).done( (response) => {
-                $('.spinner').remove();
-                if(response.success == true){
-                    if(response.div.length > 0){
-                        $('.'+response.div).remove();
-                    }
-                    console.log(response.msg);
-                }else{
-                    console.log('login failed');
-                }
-            });
-        }
     </script>
     </div>
     <!-- /#wrapper -->

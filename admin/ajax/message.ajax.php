@@ -26,10 +26,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
         
         if(count($error) == 0){
-            $edit = $message->edit($_POST['id'], $_POST['subject'], $_POST['date'], $_POST['body']);
+            $edit = $message->edit($_POST['id'], $_POST['subject'], $_POST['date'], $_POST['body'], $_POST['active']);
             
             if($edit == true){ //edited successfully
-                $response = array('success' => true, 'redirect'=> 'none');
+                $response = array('success' => true, 'redirect'=> 'none', 'msg' => 'Message Edited succesfully.' );
             }else{
                 $response = array('success' => false, 'redirect'=> 'none', 'msg' => 'Something went wrong please try again.');
             }
@@ -56,6 +56,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
             if($new > 0){ //created successfully
                 $response = array('success' => true, 'redirect'=> "messages_list.php", 'msg' => 'Message Created succesfully.');
+            }else{
+                $response = array('success' => false, 'redirect'=> 'none', 'msg' => 'Something went wrong please try again.');
+            }
+        }else{
+            $response = array('success' => false, 'redirect'=> 'none', 'msg' => $error);
+        }
+    }
+    
+    //DEACTIVATE message
+    if($_POST['a'] == 'd'){
+        
+        $error = "";
+        
+        if(strlen($_POST['id']) == 0){
+            $error = 'System error please try again later';
+        }
+        
+        if(strlen($error) == 0){
+            $deactivate = $message->deactivate($_POST['id']);
+            
+            if($deactivate){ //created successfully
+                $response = array('success' => true, 'redirect'=> 'none', 'msg' => 'Message Deleted succesfully.');
             }else{
                 $response = array('success' => false, 'redirect'=> 'none', 'msg' => 'Something went wrong please try again.');
             }

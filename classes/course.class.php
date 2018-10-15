@@ -7,11 +7,12 @@ class Course extends Database{
         parent::__construct();
     }
     
-    //get list of courses available 
+    //get list of ALL courses available 
     public function getCourses(){
         $query = "SELECT 
                         id,name,code
                     FROM course
+                    WHERE active = 1
                     ORDER BY name ASC";
         $statement = $this->connection->prepare($query);
         $statement->execute();
@@ -25,9 +26,31 @@ class Course extends Database{
         return $this->course;
     }
     
+    //get list of courses for curriculum 
+    public function getCoursesForCurrirulum($bachelor_id){
+        $query = "SELECT 
+                        id,name,code 
+                    FROM course 
+                    WHERE id NOT IN (
+                        SELECT DISTINCT(course_id) AS id FROM curriculum WHERE bachelor_id =?
+                    ) AND active = 1 
+                    ORDER BY name ASC";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $bachelor_id);
+        $statement->execute();
+        
+        $result = $statement->get_result();
+        
+        //loop thru query results
+        while( $row = $result->fetch_assoc() ){
+            array_push( $this->course, $row );
+        }
+        return $this->course;
+    }
+    
     //get specific course by ID
     public function getCourse($id){
-        $query = "SELECT * FROM course WHERE id = ?";
+        $query = "SELECT * FROM course WHERE id = ? AND active = 1";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();
@@ -41,6 +64,7 @@ class Course extends Database{
         return $this->course;
         
     }
+
     
     //get courses available to add on timetable depending on bachelor ID
     public function getCoursesForTimetable($id){
@@ -59,7 +83,8 @@ class Course extends Database{
                     JOIN `group` AS cgroup ON cgroup.course_id = course.id
                     JOIN session ON session.group_id = cgroup.id
                     JOIN room ON room.id = session.room_id
-                    WHERE bachelor_id = ? ORDER BY course.name ASC";
+                    WHERE bachelor_id = ? AND course.active = 1 
+                    ORDER BY course.name ASC";
         
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
@@ -99,9 +124,9 @@ class Course extends Database{
     //create a new course
     public function create($name, $overview, $learning_outcomes, $code, $hours_per_week, $credits){
         $query = "INSERT INTO course 
-                        (name, overview, learning_outcomes, code, hours_per_week, credits) 
+                        (name, overview, learning_outcomes, code, hours_per_week, credits, active) 
                     VALUES 
-                        (?,?,?,?,?,?)";
+                        (?,?,?,?,?,?,1)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ssssss', $name, $overview, $learning_outcomes, $code, $hours_per_week, $credits);
         
@@ -122,11 +147,21 @@ class Course extends Database{
                     WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ssssssi', $name, $overview, $learning_outcomes, $code, $hours_per_week, $credits, $id);
-        $statement->execute();
         
         $succes = $statement->execute() ? true : false;
         
         return $succes;
+    }
+    
+    //"delete" deactivate a course
+    public function deactivate($id){
+        $query = "UPDATE course SET active = 0 WHERE id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        
+        $success = $statement->execute() ? true : false;
+        
+        return $success;
     }
 }
 

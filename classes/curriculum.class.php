@@ -42,12 +42,22 @@ class Curriculum extends Database{
         return $succes;
     }
     
+    //Add a course to curriculum
+    public function addCurriculum($bachelor_id, $course_id){
+        $query = "INSERT INTO curriculum (bachelor_id, course_id) VALUES (?,?)";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('ii', $bachelor_id, $course_id);
+        
+        $succes = $statement->execute() ? true : false;
+        
+        return $succes;
+    }
+    
     //Delete a course from curriculum
     public function delCurriculum($bachelor_id, $course_id){
         $query = "DELETE FROM curriculum WHERE bachelor_id = ? AND course_id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('ii', $bachelor_id, $course_id);
-        $statement->execute();
         
         $succes = $statement->execute() ? true : false;
         

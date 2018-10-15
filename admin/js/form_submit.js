@@ -18,9 +18,8 @@ $(document).ready(
                     if(response.redirect != 'none'){
                         window.location.href = response.redirect;
                     }
-                }else{
-                    console.log('login failed');
                 }
+                msgHandler(response.success, response.msg);
             });
         })
     }

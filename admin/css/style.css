@@ -50,6 +50,10 @@ body {
   margin-right: -250px;
 }
 
+.scrollableModal {
+  height:200px;
+  overflow-y: scroll;
+}
 
 /* Sidebar Styles */
 
@@ -119,4 +123,27 @@ body {
     position: relative;
     margin-right: 0;
   }
+}
+a.deco-none: {
+    color:#000000 !important;
+    text-decoration:none;
+}   
+.btn-primary{
+    background-color: #E35406;
+    color: #ffffff;
+    border-color: #E35406;
+}
+.btn-primary:hover{
+    background-color: #E33606;
+}
+.list-group-item-action:hover{
+    background-color: #5AADAC;
+    color: #000000;
+}
+.list-group-item-action:active{ 
+    background-color: #E35406;
+    color: #000000;
+}
+a.list-group-item{
+    color: inherit;
 }

@@ -7,11 +7,17 @@ class Session extends Database{
         parent::__construct();
     }
     
-    //get list of session available
-    public function getSession(){
-        $query = "SELECT * FROM session ORDER BY name ASC";
+    //get list of ALL sessions for a specific group
+    public function getSessions($id){
+        $query = "SELECT 
+                        session.*, 
+                        room.name 
+                    FROM session 
+                    JOIN room ON room.id = session.room_id 
+                    WHERE group_id = ? 
+                    ORDER BY session.day ASC, session.time_block ASC";
         $statement = $this->connection->prepare($query);
-        //$statement->bind_param('s', $email);
+        $statement->bind_param('i', $id);
         $statement->execute();
         
         $result = $statement->get_result();
@@ -22,7 +28,7 @@ class Session extends Database{
         }
         return $this->session;
     }
-    
+ /*   
     //get specific session by ID
     public function getSession($id){
         $query = "SELECT * FROM session WHERE id = ?";
@@ -38,27 +44,39 @@ class Session extends Database{
         }
         return $this->session;
     }
-    
+  */  
     //create a new session
-    public function create($group_id, $day, $time_block, $room){
-        $query = "INSERT INTO session (group_id, day, time_block, room) VALUES (?,?,?,?)";
+    public function create($group_id, $day, $time_block, $room_id){
+        $query = "INSERT INTO session (group_id, day, time_block, room_id) VALUES (?,?,?,?)";
         $statement = $this->connection->prepare($query);
-        $statement->bind_param('ssss', $group_id, $day, $time_block, $room);
-        $succes = $statement->execute() ? true : false;
+        $statement->bind_param('iiii', $group_id, $day, $time_block, $room_id);
         
-        return $succes;
+        $statement->execute();
+        
+        return $statement->insert_id;
     }
     
     //edit a session
-    public function edit($id, $group_id, $day, $time_block, $room){
-        $query = "UPDATE session SET name = ?, group_id = ?, day = ?, time_block = ?, room = ? WHERE id = ?";
+    public function edit($id, $group_id, $day, $time_block, $room_id){
+        $query = "UPDATE session SET name = ?, group_id = ?, day = ?, time_block = ?, room_id = ? WHERE id = ?";
         $statement = $this->connection->prepare($query);
-        $statement->bind_param('ssssi', $group_id, $day, $time_block, $room, $id);
+        $statement->bind_param('ssssi', $group_id, $day, $time_block, $room_id, $id);
         $statement->execute();
         
         $succes = $statement->execute() ? true : false;
         
         return $succes;
+    }
+    
+    //"delete" deactivate a group
+    public function remove($id){
+        $query = "DELETE FROM session WHERE id = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+            
+        $success = $statement->execute() ? true : false;
+        
+        return $success;
     }
 }
 

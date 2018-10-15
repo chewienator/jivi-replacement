@@ -14,43 +14,49 @@ $page_title = "Home Page";
     <body>
         <?php include('includes/navbar.php'); ?>
         <!-- ABOUT -->
-        <div id="#about" class="container-about d-flex ">
-            <div class="container align-self-center">
-                <h1 class="text-center"> TIM </h1>
-                <h3 class="text-center"> TIMetable Management</h3>
-                <h4 class="text-center"> The paper-free time-effective solution
-                to create and maintain academic schedules and data. It helps 
-                the administration of every institute providing ease of scheduling 
-                and marking attendance.</h4>
+        <div id="#about" class="container-about d-flex align-items-center">
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <img src="../images/tam_bnr_img1.png" class="image-fluid">
+                </div>
+                <div class="col-md-8 d-flex justify-content-start">
+                    <div class="container-fluid">
+                        <h1 class="text-center"> HORA </h1>
+                        <h3 class="text-center"> Timetable Management System</h3>
+                        <h4 class="text-center"> The paper-free time-effective solution
+                        to create and maintain academic schedules and data. It helps 
+                        the administration of every institute providing ease of scheduling.</h4>
+                    </div>
+                </div>
             </div>
         </div>   
         <!-- SERVICES -->
         <div id="#services" class="parallax container-services text-center d-flex">
-            <div class="container align-self-center">
+            <div class="container-fluid align-self-center">
                 <h1 class="mb-5 mt-5" > SERVICES </h1>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="colo">
+                    <div class="col-md-4 bo">
                             <h3> COURSE MANAGEMENT </h3>
-                            <p> TIM gives total freedom in bachelors and courses management. 
+                            <p> Hora gives total freedom in bachelors and courses management. 
                             The administration will be able to create, edit, upgrade and delete 
                             any bachelors and/or related courses with ease. </p>
-                        </div>
+                        
                     </div>
-                    <div class="col-md-4">
-                        <div class="colo">
+                    <div class="col-md-4 bo">
+                       
                             <h3> TIMETABLE <br> CREATION </h3>
-                            <p> TIM allows students to create their own schedule 
+                            <p> Hora helps align a proper schedue and allot faculty as per their availability. 
+                            Whit Hora students can create their own schedule 
                             without the use of paper or intervention from students
                             service staff. </p>
-                        </div>
+                        
                     </div>
-                    <div class="col-md-4">
-                        <div class="colo">
+                    <div class="col-md-4 bo">
+                        
                             <h3> STUDENTS MANAGEMENT </h3>
                             <p> The system consent to create, modify, delete and 
-                            store data of students and daily attendance.  </p>
-                        </div>
+                            store data of students. The administration became easier thanks to the help of Hora.  </p>
+                        
                     </div>
                 </div>
             </div>
@@ -115,7 +121,4 @@ $page_title = "Home Page";
         <i class="fa fa-home"></i>
         </script>  -->
     </body>
-    <footer>
-        <?php include('includes/footer.php'); ?>
-    </footer>
 </html>

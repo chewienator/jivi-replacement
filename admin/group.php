@@ -1,31 +1,36 @@
 <?php
 session_start();
-//include session check
 include('../session_check.php');
-
-//include the autoloader class
 include('../autoloader.php');
 
-//we need the bachelors list for this page
-//$bachelor = new Bachelor();
-//$bachelor_list = $bachelor->getBachelors();
-
 //lets check if they want to edit or create
-if($_GET['a'] == 'e'){ 
-    //lets get them the information they want
-    $course = new Course();
-    $info = $course->getCourse($_GET['id']);
+if($_GET['a'] == 'e'){ //edit the message
+    //lets get them the information for the message they want
     $group = new Group();
-    $groups_list = $group->getGroupsFromCourse($_GET['id']);
-    $page_title = "Edit Course";
+    $info = $group->getGroup($_GET['id']);
     $accounts = new Account();
     $teacher_accounts = $accounts->getTeacherAccounts();
-
-}elseif($_GET['a'] == 'n'){ //create a new one
-    $page_title = "Create Course";
+    $rooms = new Room();
+    $room_list = $rooms->getRooms();
+    $sessions = new Session();
+    $session_list = $sessions->getSessions($_GET['id']);
+    $page_title = "Edit Group";
 }
 
-
+$days = array(
+            1 =>'Monday', 
+            2 =>'Tuesday', 
+            3 =>'Wednesday',
+            4 =>'Thursday',
+            5 =>'Friday'
+        );
+$blocks = array(
+            1=>'8.00am - 10.00am', 
+            2=>'10.00am - 12.00am', 
+            3=>'1.00pm - 3.00pm',
+            4=>'3.00pm - 5.00pm',
+            5=>'5.00pm - 7.00pm'
+        );
 ?>
         
 <!DOCTYPE html>
@@ -34,6 +39,7 @@ if($_GET['a'] == 'e'){
 <body>
 <link href="css/style.css" rel="stylesheet">
     <div id="wrapper">
+
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <?php include 'includes/navbar.php'; ?>  
@@ -43,67 +49,57 @@ if($_GET['a'] == 'e'){
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <h2>Course</h2>
-                <p>Here is all information related to this course</p>
+                <h2>Group</h2>
+                <p>Here you can edit groups and add session blocks for it</p>
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
             </div>
             <div class="row pt-3">
                 <div class="col-6">
                     <form id="main-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control" id="name" value="<?php echo $info['name']; ?>" required>
+                                <label for="name">Name</label>
+                                <input type="text" name="name" class="form-control" id="name" value="<?php echo $info['name']; ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="overview">Overview</label>
-                            <textarea class="form-control" name="overview" id="overview" rows="4"><?php echo $info['overview']; ?></textarea>
+                            <label for="teacher_id">Teacher</label>
+                            <select name="teacher_id" class="form-control">
+                                <?php 
+                                if(count($teacher_accounts)>0){
+                                    foreach($teacher_accounts AS $teacher){
+                                        //check if the course belongs to this bachelor
+                                        if($teacher['id'] == $info['teacher_id']){ $selected = "selected"; }else{ $selected =""; }
+                                        echo '<option value="'.$teacher['id'].'" '.$selected.'>'.$teacher['name'].' '.$teacher['surname'].'</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="learning_outcomes">Learning Outcomes</label>
-                            <textarea class="form-control" name="learning_outcomes" id="learning_outcomes" rows="4"><?php echo $info['learning_outcomes']; ?></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="cricos">Program code</label>
-                            <input type="text" name="code" class="form-control" id="code" value="<?php echo $info['code']; ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="hours_per_week">Hours per week</label>
-                            <input type="text" name="hours_per_week" class="form-control" id="hours_per_week" value="<?php echo $info['hours_per_week']; ?>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="credits">Credits</label>
-                            <input type="text" name="credits" class="form-control" id="credits" value="<?php echo $info['credits']; ?>" required>
-                        </div>
-                        <input type="hidden" name="a" value="<?php echo $_GET['a']; ?>">
-                        <input type="hidden" name="h" value="course">
-                        
-                        <?php if($_GET['a'] == 'e'){ ?>
+                        <input type="hidden" name="a" value="e">
                         <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
-                        <?php  }  ?>
                         
                         <button class="btn btn-primary mt-2" id="save-btn" type="submit"/>Save</button>
                     </form>
                 </div>
                 <div class="col-6">
                     <div class="container">
-                        <h6>Groups</h6>
+                        <h6>Sessions</h6>
                         
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroup">Create new group</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroup">Create new session</button>
                         
                         <div class="container-fluid pt-3">
                             <div class="list-group w-100 curriculum-list">
                                 <?php 
-                                if(count($groups_list) >0){
-                                    foreach($groups_list as $group){ 
+                                if(count($session_list) >0){
+                                    foreach($session_list AS $session){ 
                                 ?>
-                                <div class="list-group-item flex-column align-items-start <?php echo 'c'.$group['id']; ?>">
+                                <div class="list-group-item flex-column align-items-start <?php echo 'c'.$session['id']; ?>">
                                     <div class="row">
                                         <div class="col justify-content-between">
-                                            <h6 class="mb-1"><a href="/admin/group.php?a=e&id=<?php echo $group['id']; ?>"><?php echo $group['course_name'].' '.$group['name']; ?></a></h6>
+                                            <h6 class="mb-1"><?php echo $session['name'].' '.$days[$session['day']].' - '.$blocks[$session['time_block']]; ?></a></h6>
                                         </div>
                                         <div class="col d-flex justify-content-end align-self-center">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-danger" onclick="group('d',<?php echo $group['id']; ?>);"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="session('d',<?php echo $session['id']; ?>);"><i class="fa fa-minus" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -115,13 +111,13 @@ if($_GET['a'] == 'e'){
                 </div>
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
-        <!-- add course to curriculum Modal -->
+     <!-- /#page-content-wrapper -->
+        <!-- Modal -->
         <div class="modal fade" id="createGroup" tabindex="-1" role="dialog" aria-labelledby="addGroup" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addGroup">Create course group</h5>
+                        <h5 class="modal-title" id="addGroup">Create session block</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -129,19 +125,37 @@ if($_GET['a'] == 'e'){
                     <div class="modal-body">
                         <form id="group-form" method="post">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" class="form-control" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="teacher_id">Teacher</label>
-                                <select name="teacher_id" class="form-control" required>
+                                <label for="room_id">Room</label>
+                                <select name="room_id" class="form-control" required>
                                     <option></option>
                                     <?php 
-                                    if(count($teacher_accounts)>0){
+                                    if(count($room_list)>0){
                                         
-                                        foreach($teacher_accounts AS $teacher){
-                                            echo '<option value="'.$teacher['id'].'">'.$teacher['name'].' '.$teacher['surname'].'</option>';
+                                        foreach($room_list AS $room){
+                                            echo '<option value="'.$room['id'].'">'.$room['name'].'</option>';
                                         }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="day">Day</label>
+                                <select name="day" class="form-control" required>
+                                    <option></option>
+                                    <?php 
+                                    foreach($days AS $value => $day){
+                                            echo '<option value="'.$value.'">'.$day.'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="time_block">Time Block</label>
+                                <select name="time_block" class="form-control" required>
+                                    <option></option>
+                                    <?php 
+                                    foreach($blocks AS $value => $block){
+                                            echo '<option value="'.$value.'">'.$block.'</option>';
                                     }
                                     ?>
                                 </select>
@@ -152,7 +166,7 @@ if($_GET['a'] == 'e'){
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button id="submitGroup" type="button" onclick="submitGroup()" class="btn btn-primary">Create group</button>
+                        <button id="submitSession" type="button" onclick="submitSession()" class="btn btn-primary">Create session</button>
                     </div>
                 </div>
             </div>
@@ -163,45 +177,46 @@ if($_GET['a'] == 'e'){
         <script type="text/javascript">
             
             //this function sends the data to create a new group
-            function submitGroup(){
+            function submitSession(){
                 
                 let formData = $('#group-form').serialize();
                 $.ajax({
-                    url: '/admin/ajax/group.ajax.php',
+                    url: '/admin/ajax/session.ajax.php',
                     method: 'post',
                     dataType: 'json',
                     data: formData,
                 }).done( (response) => {
                     if(response.success == true){
-                        $('#createGroup').modal('toggle');
-                
-                        /* modal fix (not working completely) */
-                        $('body').removeClass('modal-open'); 
-                        $('.modal-backdrop').remove();
-                        /* /fix */
                         if(response.div.length > 0){
                             //we have to append the new course
-                            $('.'+response.div).append(response.group);
+                            $('.'+response.div).append(response.session);
                         }
                     }
+                    $('#createGroup').modal('toggle');
+                
+                    /* modal fix (not working completely) */
+                    $('body').removeClass('modal-open'); 
+                    $('.modal-backdrop').remove();
+                    /* /fix */
+                    
                     //popup the notification message
                     msgHandler(response.success, response.msg);
                 });
             }
             
             //function to delete groups
-            function group(a, group_id){
+            function session(a, session_id){
                 $.ajax({
-                    url: '/admin/ajax/group.ajax.php',
+                    url: '/admin/ajax/session.ajax.php',
                     method: 'post',
                     dataType: 'json',
-                    data: {a: a, group_id: group_id },
+                    data: {a: a, session_id: session_id },
                 }).done( (response) => {
                     if(response.success == true){
                         //if delete was successfull
                         if(response.div.length > 0 && a =='d'){
                             //remove from current course
-                            $('.c'+group_id).remove();
+                            $('.c'+session_id).remove();
                         }
                     }
                     //popup the notification message

@@ -50,10 +50,9 @@ class Message extends Database{
     
     //edit a message
     public function edit($id, $subject, $date, $body){
-        $query = "UPDATE message SET subject = ?, date = ?, body = ?, WHERE id = ?";
+        $query = "UPDATE message SET subject = ?, date = ?, body = ? WHERE id = ?";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('sssi', $subject, $date, $body, $id);
-        $statement->execute();
         
         $succes = $statement->execute() ? true : false;
         
@@ -62,3 +61,4 @@ class Message extends Database{
 }
 
 ?>
+echo date('l jS \of F Y h:i:s A');
