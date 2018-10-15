@@ -9,7 +9,7 @@ class Group extends Database{
     
     //get list of ALL group available
     public function getGroups(){
-        $query = "SELECT * FROM `group` ORDER BY name ASC";
+        $query = "SELECT * FROM `group` WHERE active = 1 ORDER BY name ASC";
         $statement = $this->connection->prepare($query);
         $statement->execute();
         
@@ -48,7 +48,7 @@ class Group extends Database{
                     FROM course 
                     JOIN `group` AS cgroup ON cgroup.course_id = course.id
 					JOIN account ON account.id = cgroup.teacher_id
-                    WHERE course.id =?";
+                    WHERE course.id =? AND cgroup.active = 1";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();
@@ -65,7 +65,7 @@ class Group extends Database{
     
     //create a new group
     public function create($name, $course_id, $teacher_id){
-        $query = "INSERT INTO `group` (name, course_id, teacher_id) VALUES (?,?,?)";
+        $query = "INSERT INTO `group` (name, course_id, teacher_id, active) VALUES (?,?,?, 1)";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('sii', $name, $course_id, $teacher_id);
         

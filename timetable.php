@@ -20,11 +20,11 @@ $myEnrolment = $enrolment->getEnrolmentById($_SESSION['id']);
 
 //lets get the course list available for this bachelor 
 $course = new Course();
-$courses = $course->getCoursesForTimetable($myEnrolment['bachelor_id']);
+$courses = $course->getCoursesForTimetableStd($myEnrolment['bachelor_id']);
 
 //lets grab all the timetable for this person
 $timetable = new Timetable();
-$myTimetable = $timetable->getUserTimetable($_SESSION['id']);
+$myTimetable = $timetable->getUserTimetableStd($_SESSION['id']);
 
 $page_title = "Timetable creator";
 

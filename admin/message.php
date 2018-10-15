@@ -45,12 +45,8 @@ if($_GET['a'] == 'e'){ //edit the message
                             <input type="text" name="subject" class="form-control" id="subject" value="<?php echo $info['subject']; ?>">
                         </div>
                         <div class="form-group">
-                            <label for="date">date</label>
-                            <input type="text" name="date" class="form-control" id="date" value="<?php echo $info['date']; ?>">
-                        </div>
-                        <div class="form-group">
                             <label for="body">text</label>
-                            <input type="text" name="body" class="form-control" id="body" value="<?php echo $info['body']; ?>">
+                            <textarea class="form-control" name="body" id="body" rows="6"><?php echo $info['body']; ?></textarea>
                         </div>
                         <input type="hidden" name="a" value="<?php echo $_GET['a']; ?>">
                         <input type="hidden" name="h" value="message">
@@ -66,8 +62,7 @@ if($_GET['a'] == 'e'){ //edit the message
         </div>
         <!-- /#page-content-wrapper -->
     <script type="text/javascript" src="js/form_submit.js"></script>
-    <script type="text/javascript">
-    </script>
+    <script type="text/javascript" src="/js/common.js"></script>
     </div>
     <!-- /#wrapper -->
     <?php include 'includes/footer.php'; ?>

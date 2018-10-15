@@ -10,17 +10,51 @@ $myProfile = $profile->getAccount($_SESSION['id']);
 $message = new Message();
 $myMessage = $message ->getMessages();
 
-//get user bachelor enrolment
-$enrolment = new Enrolment();
-$myEnrolment = $enrolment->getEnrolmentById($_SESSION['id']);
+if($_SESSION['user_type'] == 'Student'){
+    
+    //get user bachelor enrolment
+    $enrolment = new Enrolment();
+    $myEnrolment = $enrolment->getEnrolmentById($_SESSION['id']);
+    
+    //lets get the course list available for this bachelor 
+    $course = new Course();
+    $courses = $course->getCoursesForTimetableStd($myEnrolment['bachelor_id']);
+    
+    //lets grab all the timetable for this person
+    $timetable = new Timetable();
+    $myTimetable = $timetable->getUserTimetableStd($_SESSION['id']);
+    
+    $sortedTT = new Timetable();
+    $mysortedTT = $sortedTT->sortedTimeTableStd($_SESSION['id']);
 
-//lets get the course list available for this bachelor 
-$course = new Course();
-$courses = $course->getCoursesForTimetable($myEnrolment['bachelor_id']);
+}elseif($_SESSION['user_type']=='Teacher'){
+    //lets get the course list available for this bachelor 
+    $course = new Course();
+    $courses = $course->getCoursesForTimetableTch();
+    
+    //lets grab all the timetable for this person
+    $timetable = new Timetable();
+    $myTimetable = $timetable->getUserTimetableTch($_SESSION['id']);
+    
+    $sortedTT = new Timetable();
+    $mysortedTT = $sortedTT->sortedTimeTableTch($_SESSION['id']);
+}
 
-//lets grab all the timetable for this person
-$timetable = new Timetable();
-$myTimetable = $timetable->getUserTimetable($_SESSION['id']);
+
+$days = array(
+            1 =>'Monday', 
+            2 =>'Tuesday', 
+            3 =>'Wednesday',
+            4 =>'Thursday',
+            5 =>'Friday'
+        );
+$blocks = array(
+            1=>'8.00am - 10.00am', 
+            2=>'10.00am - 12.00am', 
+            3=>'1.00pm - 3.00pm',
+            4=>'3.00pm - 5.00pm',
+            5=>'5.00pm - 7.00pm'
+        );
 
 $page_title = "Dashboard";
 ?>
@@ -55,6 +89,7 @@ $page_title = "Dashboard";
                 
                 <!-- second colomn -->
                 <div class="col-md-8 p-3">
+                    <?php if($_SESSION['user_type'] == 'Student'){ ?>
                     <!-- Profile colo -->
                     <div class="row" >
                         <div class="container-fluid">
@@ -76,6 +111,7 @@ $page_title = "Dashboard";
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                     <!-- timetable column -->
                     <div class="row">
                         <div class="container-fluid">
@@ -137,15 +173,26 @@ $page_title = "Dashboard";
                             </table>
                             </div>
                             <div class="d-lg-none d-md-block">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action active">
-                                    cras justo odio
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                                </div>
+                                <ul class="list-group p-3">
+                                    <?php 
+                                    $day = 0;
+                                    foreach($mysortedTT AS $session){  
+                                    
+                                        //if this is the first time we are displaying this day
+                                        if($day != $session['day']){
+                                            echo'
+                                            <li class="list-group-item active activeTT">
+                                                <h6 class="mb-1">'.$days[$session['day']].'</h6>
+                                            </li>';
+                                            $day = $session['day'];
+                                        }
+
+                                        echo'<li class="list-group-item">
+                                                    '.$session['name'].' - '.$session['room_name'].'<br>
+                                                    '.$blocks[$session['time_block']].'
+                                            </li>';
+                                  } ?>
+                                </ul>
                             </div>
                         </div> <!-- insert table from timetable.php -->
                     </div>

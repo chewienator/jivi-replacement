@@ -21,4 +21,16 @@ class Options extends Database{
         return $this->value;
     }
     
+    //flexible method to query different options general to the system
+    public function switchOption($option,$value){
+        $query = "UPDATE options SET option_value =? WHERE option_name = ?";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('ss', $value, $option);
+        $statement->execute();
+        
+        $success = $statement->execute() ? true : false;
+        
+        return $success;
+    }
+    
 }

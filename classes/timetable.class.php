@@ -7,9 +7,79 @@ class Timetable extends Database{
         parent::__construct();
     }
     
-    //get specific timetable by user ID (only one)
-    public function getUserTimetable($id){
+    //get specific timetable for student ID (only one)
+    public function getUserTimetableStd($id){
         $query = "SELECT group_id FROM timetable WHERE user_id = ? ORDER BY group_id ASC";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+        
+        $result = $statement->get_result();
+        
+        //loop thru query results
+        while( $row = $result->fetch_assoc() ){
+            array_push( $this->timetable, $row );
+        }
+        return $this->timetable;
+    }
+    
+    //get specific timetable for teacher ID (only one)
+    public function getUserTimetableTch($id){
+        $query = "SELECT id AS group_id FROM `group` WHERE teacher_id = ? ORDER BY id ASC";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+        
+        $result = $statement->get_result();
+        
+        //loop thru query results
+        while( $row = $result->fetch_assoc() ){
+            array_push( $this->timetable, $row );
+        }
+        return $this->timetable;
+    }
+    
+    //get the sorted timetable for the student ID
+    public function sortedTimeTableStd($id){
+        $query = "SELECT 
+                        session.day, 
+                        session.time_block, 
+                        room.name AS room_name,
+                        course.name 
+                    FROM timetable 
+                    JOIN `group` AS cgroup ON timetable.group_id = cgroup.id 
+                    JOIN session ON session.group_id = cgroup.id 
+                    JOIN course ON cgroup.course_id = course.id
+                    JOIN room ON session.room_id = room.id
+                    WHERE user_id = ? 
+                    ORDER BY day ASC, time_block ASC";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+        
+        $result = $statement->get_result();
+        
+        //loop thru query results
+        while( $row = $result->fetch_assoc() ){
+            array_push( $this->timetable, $row );
+        }
+        return $this->timetable;
+    }
+    
+    //get the sorted timetable for the Teachers ID
+    public function sortedTimeTableTch($id){
+        $query = "SELECT 
+                        session.day, 
+                        session.time_block, 
+                        room.name AS room_name,
+                        course.name 
+                    FROM timetable 
+                    JOIN `group` AS cgroup ON timetable.group_id = cgroup.id 
+                    JOIN session ON session.group_id = cgroup.id 
+                    JOIN course ON cgroup.course_id = course.id
+                    JOIN room ON session.room_id = room.id
+                    WHERE cgroup.teacher_id = ? 
+                    ORDER BY day ASC, time_block ASC";
         $statement = $this->connection->prepare($query);
         $statement->bind_param('i', $id);
         $statement->execute();

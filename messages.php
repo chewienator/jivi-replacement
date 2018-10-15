@@ -38,7 +38,6 @@ $page_title = "Messages";
                                         <div class="col justify-content-between" onclick="loadMessage(<?php echo $message['id']; ?>)">
                                             <h6 class="mb-1"><?php echo $message['subject']; ?></h6>
                                             <small class="mb-1"> <?php echo Textutility::dateTimeFormat($message['date']); ?></small>
-                                            <p class="mb-1"> <?php echo Textutility::sumarize($message['body'], 10); ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +51,7 @@ $page_title = "Messages";
                     <!-- Message details -->
                     <div class="row m1" >
                         <div class="container-fluid">
-                            <button type="button" class="btn btn-info mb-3" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button> <!--should only be visible on mobile -->
+                            <button type="button" class="btn btn-info mb-3 d-none d-md-block d-lg-none" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button> <!--should only be visible on mobile -->
                             <h2 class="col-12" id="message_subject"></h2>
                             <h6 id="message_date"></h6>
                             <p id="message_body"></p>

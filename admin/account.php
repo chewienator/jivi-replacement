@@ -38,7 +38,6 @@ if($_GET['a'] == 'e'){
     $page_title = "Create Account";
 }
 
-print_r($myEnrolment);
 ?>
         
 <!DOCTYPE html>
@@ -125,10 +124,12 @@ print_r($myEnrolment);
                         <button class="btn btn-primary mt-2" id="save-btn" type="submit"/>Save</button>
                     </form>
                 </div>
+                <?php if($info['user_type']=='Student'){ ?>
                 <div class="col-6">
                     <div class="container">
                         <h6>Enrolment</h6>
                         
+                        <a href="/admin/timetable.php?a=e&id=<?php echo $info['id']; ?>" class="btn btn-secondary">Timetable <i class="pl-1 fa fa-calendar" aria-hidden="true"></i></a>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroup">Enrol Student</button>
                         
                         <div class="container-fluid pt-3">
@@ -153,6 +154,7 @@ print_r($myEnrolment);
                         </div>
                     </div>
                 </div>
+                <?php } ?>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

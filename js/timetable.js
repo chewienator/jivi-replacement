@@ -43,9 +43,10 @@ function moveGroup(groupId){
     //let's look for the buton object
     button = $('[data-group-id="'+groupId+'"]');
     
-    //lets grab the sessions from the group
-    sessions = availableCourses[groupId].sessions;
-    
+    if(typeof availableCourses[groupId].sessions != null){
+        //lets grab the sessions from the group
+        sessions = availableCourses[groupId].sessions;
+    }
     //check if the group has been selected (group added to timetable)
     if(button.hasClass('selected')){
             

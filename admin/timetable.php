@@ -32,11 +32,11 @@ $myEnrolment = $enrolment->getEnrolmentById($_GET['id']);
 
 //lets get the course list available for this bachelor 
 $course = new Course();
-$courses = $course->getCoursesForTimetable($myEnrolment['bachelor_id']);
+$courses = $course->getCoursesForTimetableStd($myEnrolment['bachelor_id']);
 
 //lets grab all the timetable for this person
 $timetable = new Timetable();
-$myTimetable = $timetable->getUserTimetable($_GET['id']);
+$myTimetable = $timetable->getUserTimetableStd($_GET['id']);
 
 $page_title = "Timetable creator";
 
@@ -82,10 +82,10 @@ $page_title = "Timetable creator";
                                     //save the group id cause it will be lost in the sessions loop
                                     $group_id = $key;
                                 ?>
-                                <div class="list-group-item flex-column align-items-start searchable" data-name="<?php echo $course['course_name'].' - '.$course['course_code']; ?>">
+                                <div class="list-group-item flex-column align-items-start searchable" data-name="<?php echo $course['course_name'].' - '.$course['course_code'].' - '.$course['group_name']; ?>">
                                     <div class="row">
                                         <div class="col-12 justify-content-between mb-1">
-                                            <h6><?php echo $course['course_name'].' - '.$course['course_code']; ?></h6>
+                                            <h6><?php echo $course['course_name'].' - '.$course['course_code'].' - '.$course['group_name']; ?></h6>
                                         </div>
                                         <div class="col-8 justify-content-between mb-1">
                                             <small>

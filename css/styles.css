@@ -161,6 +161,10 @@ h3{
     .page2{
        position: absolute !important;
     }
+    .activeTT{
+        background-color: #007672 !important;
+        border-color: #007672 !important;
+    }
 }
 @media (max-width: 768px) {
 
