@@ -2,10 +2,15 @@
 session_start();
 //include session check
 include('session_check.php');
+
 //include the autoloader class
 include('autoloader.php');
+
+//we create an object of course
 $message = new Message();
+//let's get the courses list
 $myMessage = $message->getMessages(); 
+
 $page_title = "Messages";
 ?>
 <!doctype html>
@@ -16,9 +21,9 @@ $page_title = "Messages";
         <!-- container -->
         <div class="container-fluid">
             <div class="row">
-                <!-- FIRST PAGE -->
+                <!-- first page -->
                 <div class="col-md-12 col-lg-4 p-3 animated page1">
-                    <h2>Messages</h2>
+                    <h2>Subjects</h2>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="d-flex">
@@ -27,14 +32,17 @@ $page_title = "Messages";
                             </div>
                         </div>
                         <div class="row pt-3">
-                            <div class="list-group w-100">
-                                <?php foreach($myMessage AS $message){  ?>
+                            <div class="list-group w-100"><!-- main list container -->
+                                <?php foreach($myMessage AS $message){ //loop thru results array ?>
                                 <div class="list-group-item list-group-item-action flex-column align-items-start searchable" data-name="<?php echo $message['subject'].' - '.$message['date']; ?>">
                                     <div class="row">
-                                        <div class="col justify-content-between" onclick="loadMessage(<?php echo $message['id']; ?>)">
-                                            <h6 class="mb-1"><?php echo $message['subject']; ?></h6>
-                                            <small class="mb-1"> <?php echo Textutility::dateTimeFormat($message['date']); ?></small>
+                                        <div class="col-12 justify-content-between" onclick="loadMessage(<?php echo $message['id']; ?>)">
+                                            <h6 class="mb-1"> <?php echo $message['subject']; ?></h6>
                                         </div>
+                                        <div class="col-8 justify-content-between mb-1">
+                                            <small class="mb-1"> <?php echo Textutility::DateTimeFormat($message['date']); ?></small>
+                                        </div>
+                                        <p> <?php echo TextUtility::summarize($message['body'],10); ?></p>
                                     </div>
                                 </div>
                                 <?php  }  //closing the loop ?>
@@ -42,47 +50,30 @@ $page_title = "Messages";
                         </div>
                     </div>
                 </div>
-                <!-- second PAGE -->
+                <!-- second page -->
                 <div class="col-md-12 col-lg-8 p-3 animated page2" style="display:none;">
-                    <!-- Message details -->
-                    <div class="row m1" >
+                    <!-- Subject Detail row -->
+                    <div class="row" >
+                        
                         <div class="container-fluid">
-                            <button type="button" class="btn btn-info mb-3 d-none d-md-block d-lg-none" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button> <!--should only be visible on mobile -->
-                            <h2 class="col-12" id="message_subject"></h2>
-                            <h6 id="message_date"></h6>
-                            <p id="message_body"></p>
-                        </div>
-                    </div>
-                    <!--<div class="row m2" style="display:none;" >
-                        <div class="container-fluid">
-                            <h2 class="col-12"> Message 2 </h2>
-                            <div class=col-12>
-                                <h6> Message Object 2</h6>
-                                <p> Lorem ipsum 2 .... </p>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-info mb-3 d-none d-md-block d-lg-none" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button>
+                                <h2 id="message_subject"></h2>
+                                <small id="message_date"></small>
+                                <p id="message_body"></p>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
     </body>
-    <?php include('includes/footer.php'); ?>
     
+    <?php include('includes/footer.php'); ?>
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
-        //on load we check if we habe anu parameter to use for the messages
-        $(document).ready(function(){
-            var url_string = window.location.href;
-            var url = new URL(url_string);
-            var id = url.searchParams.get("id");
-            if(id.length > 0){
-                loadMessage(id);
-            }
-        })
-    
-    
-    function loadMessage(id){
-            //we do the ajax request for the course information
+        function loadCourse(id){
+            //we do the ajax request for the message information
             $.ajax({
                 url: '/ajax/message.ajax.php',
                 method: 'post',
@@ -97,9 +88,9 @@ $page_title = "Messages";
                     //lets modifiy the information on the actual page
                     
                     $('#message_subject').html(response.info.subject);
-                    $('#message_date').html(response.info.date);
+                    $('#messaeg_date').html(response.info.date);
                     $('#message_body').html(response.info.body);
-                    
+                   
                 },
                 complete: function() {
                     openDetailAnimation();
@@ -107,5 +98,4 @@ $page_title = "Messages";
             });
         }
     </script>
-
 </html>

@@ -34,7 +34,7 @@ $page_title = "Home Page";
         <div id="#services" class="parallax container-services text-center d-flex">
             <div class="container-fluid align-self-center">
                 <h1 class="mb-5 mt-5" > SERVICES </h1>
-                <div class="row">
+                <div class="row justify-content-center space-between">
                     <div class="col-md-4 bo">
                             <h3> COURSE MANAGEMENT </h3>
                             <p> Hora gives total freedom in bachelors and courses management. 

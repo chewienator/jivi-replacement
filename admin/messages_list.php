@@ -28,8 +28,10 @@ $page_title = "Messages list";
             
             
             <div class="container-fluid">
+                <div class" container-fluid alto">
                 <h2>Messages</h2>
                 <p>Here you will find all messages created</p>
+                </div>
                 <div class="row p-3 d-flex flex-row">
                     <a href="#menu-toggle" class="btn btn-secondary m-2" id="menu-toggle">Toggle Menu</a>
                     <a href="message.php?a=n" class="btn btn-primary m-2">Create New Message</a>

@@ -59,7 +59,7 @@ class Message extends Database{
         return $succes;
     }
     
-    //"delete" deactivate a bachelor
+    //"delete" deactivate a message
     public function deactivate($id){
         $query = "UPDATE message SET active = 0 WHERE id = ?";
         $statement = $this->connection->prepare($query);

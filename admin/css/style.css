@@ -124,7 +124,7 @@ body {
     margin-right: 0;
   }
 }
-a.deco-none: {
+.deco-none: {
     color:#000000 !important;
     text-decoration:none;
 }   
@@ -141,9 +141,35 @@ a.deco-none: {
     color: #000000;
 }
 .list-group-item-action:active{ 
-    background-color: #E35406;
+    background-color: #5AADAC;
     color: #000000;
 }
-a.list-group-item{
+.list-group-item{
     color: inherit;
+}
+.curriculum-list {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:active, a:hover{
+  text-decoration: none;
+  color: #000000;
+}
+.alto{
+  background-color: #007672;
+  background-image: linear-gradient(-35deg,#007672,#65C2C1,#007672,); ;
+  color: #ffffff;
+}
+
+.userbar {
+    background-color: #007672;
+    background-image: linear-gradient(-35deg,#007672,#65C2C1,#007672,); ;
+    color: #ffffff;
+    height: 25px; 
+    font-size: 10px;
 }

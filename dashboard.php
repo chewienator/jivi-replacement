@@ -74,7 +74,7 @@ $page_title = "Dashboard";
                             <h2> Messages </h2>
                             <div class="list-group p-3">
                                 <?php foreach($myMessage AS $message){  ?>
-                                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                 <a href="../messages.php?id=<?php echo $message['id']; ?>" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex justify-content-between">
                                          <h6 class="mb-1"><?php echo $message['subject']; ?></h6>
                                          <small><?php echo $message['date']; ?></small>

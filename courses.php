@@ -42,12 +42,12 @@ $page_title = "Subjects";
                                         <div class="col-8 justify-content-between mb-1">
                                             <small class="mb-1"> <?php echo $course['code']; ?></small>
                                         </div>
-                                        <div class="col-4 d-flex justify-content-end align-self-end">
+                                        <!-- <div class="col-4 d-flex justify-content-end align-self-end">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <!--<button type="button" class="btn">i</button>-->
+                                                <!--<button type="button" class="btn">i</button>
                                                 <button type="button" class="btn btn-secondary" onclick="moveGroup(<?php echo $group_id; ?>);" data-group-id="<?php echo $group_id; ?>"><i class="fa fa-heart" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
+                                            </div> 
+                                        </div> -->
                                     </div>
                                 </div>
                                 <?php  }  //closing the loop ?>
@@ -62,7 +62,7 @@ $page_title = "Subjects";
                         
                         <div class="container-fluid">
                             <div class="col-12">
-                                <button type="button" class="btn btn-info mb-3" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button> <!--should only be visible on mobile -->
+                                <button type="button" class="btn btn-info mb-3 d-none d-md-block d-lg-none" onclick="goBackAnimation()"> <i class="fa fa-angle-left fa-2x"></i> </i> </button>
                                 <h2 id="course_name"></h2>
                                 <div class="row">
                                     <div class="col-4 align-items-start">
